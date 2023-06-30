@@ -1,6 +1,13 @@
-import './App.css';
+import './App.css'
+import {Footer} from './public'
+
 function App() {
-    return <></>;
+
+  return (
+    <div id='dark'>
+        <Footer />
+    </div>
+  )
 }
 
 export default App;
