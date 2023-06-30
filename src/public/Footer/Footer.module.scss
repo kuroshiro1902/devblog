@@ -1,0 +1,10 @@
+.container{
+    border-radius: 1rem;
+    background-color: var(--bg-component);
+    padding: 4rem;
+}
+.content{
+    &>*{
+        flex:1;
+    }
+}
