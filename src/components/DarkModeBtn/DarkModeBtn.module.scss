@@ -1,0 +1,37 @@
+.toggle {
+    cursor: pointer;
+}
+.toggleInput {
+    display: none;
+}
+.toggleBar {
+    width: 4rem;
+    height: 2rem;
+    background-image: url(../../assets/image/dark.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 5px;
+    border-radius: 5rem;
+    transition: all 0.25s linear;
+}
+.toggleSpin {
+    width: 1.5rem;
+    height: 1.5rem;
+    background-image: url(../../assets/image/dark.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top left;
+    border-radius: 5rem;
+    transition: all 0.25s linear;
+    box-shadow: 0 0 5px 1px red;
+    border: 1px solid #ccc;
+}
+.toggleInput:checked + .toggleBar {
+    background-image: url(../../assets/image/light.jpg);
+}
+.toggleInput:checked + .toggleBar .toggleSpin {
+    background-image: url(../../assets/image/light.jpg);
+    transform: translate(2rem);
+    box-shadow: 0 0 5px 1px #ccc;
+}
