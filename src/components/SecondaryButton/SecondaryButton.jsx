@@ -1,6 +1,6 @@
 import clsx from 'clsx';
-import s from './PrimaryButton.module.scss'
-function PrimaryButton({children, title, rounded, disabled}) {
+import s from './SecondaryButton.module.scss'
+function SecondaryButton({children, title, rounded, disabled}) {
     return ( 
         <button 
         title={title}
@@ -12,4 +12,4 @@ function PrimaryButton({children, title, rounded, disabled}) {
      );
 }
 
-export default PrimaryButton;
+export default SecondaryButton;

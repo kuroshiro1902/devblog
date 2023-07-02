@@ -1,10 +1,40 @@
 .container{
     border-radius: 1rem;
     background-color: var(--bg-component);
-    padding: 4rem;
+    padding: 5rem;
+    gap: 2.5rem;
 }
 .content{
+    gap: 2rem;
+
+    border-bottom: .5px solid #ddd;
     &>*{
         flex:1;
+        padding: .5rem;
+        padding-bottom: 2rem;
+    }
+}
+.subTitle{
+    margin-bottom: .5rem;
+}
+.title{
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+.section{
+    gap: 1rem;
+}
+.list{
+    columns: 2;
+    list-style-type: none;
+}
+.about{
+    .license{
+        flex: 4;
+    }
+    .social{
+        flex:6;
+        flex-direction: row-reverse;
+        gap: 1.2rem
     }
 }
