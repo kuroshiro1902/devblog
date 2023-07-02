@@ -8,20 +8,14 @@
     cursor: pointer;
     font-size: .9rem;
     font-weight: 700;
-    background-image: linear-gradient(to left, var(--blue1), var(--blue2));
-    transition: transform .5s, box-shadow .25s;
+    transition: all .5s;
     &:hover{
-        box-shadow: 0 0 4px var(--blue1);
         transform: translateY(-4px);
     }
 }
 .disabled{
-    --blue1: rgba(63, 105, 105, 0.753);
-    --blue2: #365463;
     cursor: default;
-    background-image: linear-gradient(to left, var(--blue1), var(--blue2));
     &:hover{
-        box-shadow: unset;
         transform: unset;
     }
 }

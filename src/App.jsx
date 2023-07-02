@@ -1,10 +1,11 @@
 import './App.css'
-import {Footer} from './public'
+import {Footer, Header} from './public'
 
 function App() {
 
   return (
     <div id='dark'>
+        <Header />
         <Footer />
     </div>
   )
