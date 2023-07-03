@@ -1,0 +1,30 @@
+.topicCard{
+    display: block;
+    width: 100%; height: 100%;
+    background-color: transparent;
+    overflow: hidden;
+    border-radius: .75rem;
+    position: relative;
+    &:hover .bgImg{
+        scale: 1.1;
+    }
+}
+.overlay{
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background-image: linear-gradient(to top, #00000050, transparent, transparent);
+}
+.bgImg{
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+    transition: all .25s;
+}
+.info{
+    position: absolute;
+    left:0; bottom: 0;
+    padding: 1rem;
+}
+.count{
+    text-shadow: 0 0 2px #000, 0 0 4px #000;
+}

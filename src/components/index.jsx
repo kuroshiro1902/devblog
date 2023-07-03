@@ -9,3 +9,6 @@ export { default as SocialLink } from './SocialLink/SocialLink';
 export { default as Tag } from './Tag/Tag';
 export { default as PostItem } from './PostItem/PostItem';
 export { default as Post } from './Post/Post';
+export {default as PostCard} from './PostCard/PostCard'
+export {default as TopicCard} from './TopicCard/TopicCard'
+export {default as Slider} from './Slider/Slider'

@@ -9,10 +9,8 @@
     font-size: .9rem;
     font-weight: 700;
     background-image: linear-gradient(to left, var(--blue1), var(--blue2));
-    transition: transform .5s, box-shadow .25s;
     &:hover{
         box-shadow: 0 0 4px var(--blue1);
-        transform: translateY(-4px);
     }
 }
 .disabled{

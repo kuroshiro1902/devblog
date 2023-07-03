@@ -13,6 +13,7 @@ export default function DarkModeBtn() {
     }, [isDarkMode]);
     const toggleDarkMode = () => {
         setIsDarkMode(!isDarkMode);
+        localStorage.setItem('mode', !isDarkMode)
     };
     console.log(isDarkMode);
     return (
