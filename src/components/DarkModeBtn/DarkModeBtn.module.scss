@@ -7,7 +7,7 @@
 .toggleBar {
     width: 4rem;
     height: 2rem;
-    background-image: url(../../assets/image/dark.jpg);
+    background-image: url(../../assets/image/light.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -18,7 +18,7 @@
 .toggleSpin {
     width: 1.5rem;
     height: 1.5rem;
-    background-image: url(../../assets/image/dark.jpg);
+    background-image: url(../../assets/image/light.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: top left;
@@ -28,10 +28,10 @@
     border: 1px solid #ccc;
 }
 .toggleInput:checked + .toggleBar {
-    background-image: url(../../assets/image/light.jpg);
+    background-image: url(../../assets/image/dark.jpg);
 }
 .toggleInput:checked + .toggleBar .toggleSpin {
-    background-image: url(../../assets/image/light.jpg);
+    background-image: url(../../assets/image/dark.jpg);
     transform: translate(2rem);
     box-shadow: 0 0 5px 1px #ccc;
 }
