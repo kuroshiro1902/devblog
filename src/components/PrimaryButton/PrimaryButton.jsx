@@ -4,7 +4,7 @@ function PrimaryButton({children, title, rounded, disabled}) {
     return ( 
         <button 
         title={title}
-        className={clsx(s.button, {'rounded': rounded }, {[s.disabled]: disabled })} 
+        className={clsx(s.button,'move-up', {'rounded': rounded }, {[s.disabled]: disabled })} 
         disabled={disabled}
         >
             {children}
