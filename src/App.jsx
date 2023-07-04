@@ -7,15 +7,16 @@ import Home from './public/Home/Home';
 function App() {
     return (
         <div id="dark" className="mode">
-        <Router>
-            <Header />
-                <Link to='/posts'>go to post page</Link>
+            <Router>
+                <Header />
+                
                 <Routes>
-                    <Route path='/posts' element={<Posts />} />
-                    <Route path='/' element={<Home/>} />
+                    <Route path='/' element={<Home/>}/>
                 </Routes>
-        </Router>
-            </div>
+                <Footer/>
+            </Router>
+            
+        </div>
     );
 }
 

@@ -1,4 +1,4 @@
-.button{
+.button {
     --blue1: #0bd1d1;
     --blue2: #0ea5ea;
     height: 100%;
@@ -7,13 +7,13 @@
     border: none;
     color: #fff;
     cursor: pointer;
-    font-size: .9rem;
+    font-size: 0.9rem;
     font-weight: 700;
     background-color: #4e6275;
 }
-.disabled{
+.disabled {
     cursor: default;
-    &:hover{
+    &:hover {
         transform: unset;
     }
 }
