@@ -2,12 +2,13 @@ import React from 'react';
 import st from './BlockItem.module.scss';
 import SecondaryButton from '../SecondaryButton/SecondaryButton';
 import HashTag from '../HashTag/HashTag';
+import { AiOutlineClockCircle } from 'react-icons/ai';
 export default function BlockItem({
     image = 'https://jthemes.net/themes/wp/genz/wp-content/uploads/2023/02/news2-270x257.jpg',
     sticky = 'sticky',
     tagBtn = ['Healthy', 'Technology'],
     headingLink = 'Digital Design That Will Help You Start Your Business',
-    title = 'The fancy moon going in little artist painting. Thirty days of lavender in the dreamy light inside. Other perfect oh plants, for and again.…',
+    title = 'The fancy moon going in little artist painting. Thirty days of lavender in the dreamy light inside. Other perfect oh plants, for and again',
     tags = ['Lifestyle', 'Travel', 'Lifestyle'],
     time = '1 min to read',
 }) {
@@ -35,7 +36,9 @@ export default function BlockItem({
                             <HashTag key={index}>{tag}</HashTag>
                         ))}
                     </span>
-                    <span className={`${st.time} subtext`}>{time}</span>
+                    <span className={`${st.time} subtext`}>
+                        <AiOutlineClockCircle /> {time}
+                    </span>
                 </div>
             </div>
         </div>

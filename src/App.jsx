@@ -8,12 +8,11 @@ function App() {
     return (
         <div id="dark" className="mode">
             <Router>
-                {/* <Header /> */}
-
+                <Header />
                 <Routes>
                     <Route path="/" element={<Home />} />
                 </Routes>
-                {/* <Footer/> */}
+                <Footer />
             </Router>
         </div>
     );

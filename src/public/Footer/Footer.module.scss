@@ -1,40 +1,43 @@
-.container{
+.container {
+    max-width: 1400px;
+    margin: auto;
     border-radius: 1rem;
     background-color: var(--bg-component);
     padding: 5rem;
+    padding-top: 2rem;
     gap: 2.5rem;
 }
-.content{
+.content {
     gap: 2rem;
 
-    border-bottom: .5px solid #ddd;
-    &>*{
-        flex:1;
-        padding: .5rem;
+    border-bottom: 0.5px solid #ddd;
+    & > * {
+        flex: 1;
+        padding: 0.5rem;
         padding-bottom: 2rem;
     }
 }
-.subTitle{
-    margin-bottom: .5rem;
+.subTitle {
+    margin-bottom: 0.5rem;
 }
-.title{
+.title {
     font-size: 1.2rem;
     margin-bottom: 2rem;
 }
-.section{
+.section {
     gap: 1rem;
 }
-.list{
+.list {
     columns: 2;
     list-style-type: none;
 }
-.about{
-    .license{
+.about {
+    .license {
         flex: 4;
     }
-    .social{
-        flex:6;
+    .social {
+        flex: 6;
         flex-direction: row-reverse;
-        gap: 1.2rem
+        gap: 1.2rem;
     }
 }

@@ -1,7 +1,12 @@
-.slider {
+.sliderCtn {
     width: 100%;
     height: 100%;
+    max-width: 1020px;
     padding: 0 1rem;
+    margin: auto;
+}
+.slider {
+    height: 100%;
 }
 .splide__slide {
     flex-shrink: unset;

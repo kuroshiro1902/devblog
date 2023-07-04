@@ -2,7 +2,7 @@ import React from 'react';
 import st from './PostItem.module.scss';
 export default function PostItem({
     image = 'https://jthemes.net/themes/wp/genz/wp-content/uploads/2023/02/news2-150x150.jpg',
-    author = 'Helpful tips ',
+    author,
     textLink = 'Helpful tips for women working from home during lockdown',
     date = '12h',
 }) {

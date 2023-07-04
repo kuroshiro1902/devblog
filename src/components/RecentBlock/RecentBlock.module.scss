@@ -2,7 +2,8 @@
     width: 100%;
     padding: 25px;
     border-radius: 16px;
-
+    border-radius: 0.75rem;
+    background-color: var(--card-bg);
     .postTitle {
         font-size: 20px;
         font-weight: bold;

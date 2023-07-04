@@ -1,10 +1,11 @@
-import s from './TextFormInput.module.scss'
-function TextFormInput({placeholder='Enter your name'}) {
-    return ( 
+import s from './TextFormInput.module.scss';
+function TextFormInput({ placeholder = 'Enter your name', icon, type = 'text' }) {
+    return (
         <div className={s.inputCtn}>
-            <input type='text' placeholder={placeholder} />
+            {icon}
+            <input placeholder={placeholder} type={type} required />
         </div>
-     );
+    );
 }
 
 export default TextFormInput;
