@@ -78,13 +78,10 @@
             .hashtag {
                 width: 60%;
                 flex-shrink: 1;
-                display: -webkit-box;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-
                 .hashtaglink {
-                    // display: block;
                 }
             }
 
