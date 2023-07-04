@@ -1,7 +1,7 @@
 import React from 'react';
 
-import st from './Post.module.scss';
-export default function Post({ title = '', children }) {
+import st from './RecentBlock.module.scss';
+export default function RecentBlock({ title = '', children }) {
     console.log('chil', children);
     return (
         <div className={st.post}>
