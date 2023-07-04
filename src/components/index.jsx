@@ -12,3 +12,6 @@ export { default as PostCard } from './PostCard/PostCard';
 export { default as TopicCard } from './TopicCard/TopicCard';
 export { default as Slider } from './Slider/Slider';
 export { default as BlockItem } from './BlockItem/BlockItem';
+export { default as HashTag } from './HashTag/HashTag';
+
+export { default as Heading } from './Heading/Heading';

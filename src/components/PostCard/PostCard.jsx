@@ -1,3 +1,4 @@
+import HashTag from '../HashTag/HashTag';
 import s from './PostCard.module.scss'
 function PostCard({
     tags = ['hashtag1','hashtag2','hashtag3','hashtag4','hashtag5','hashtag6','hashtag7','hashtag8','hashtag9','hashtag10'], 
@@ -11,7 +12,7 @@ function PostCard({
             <div className={s.info+' subtext'}>
                 <div className={s.tags}>
                     {tags.map((tag,index)=>(
-                        <a key={index}> #{tag} </a>
+                        <HashTag key={index}>{tag}</HashTag>
                     ))}
                 </div>
                 <div>{`${readtime} ${readtime>1? 'mins':'min'} to read`} </div>

@@ -1,22 +1,21 @@
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import { BlockItem, PostCard, SecondaryButton, Slider, TopicCard } from './components';
-import { Footer, Header } from './public';
+import { Footer, Header, Posts } from './public';
+import Home from './public/Home/Home';
 
 function App() {
     return (
         <div id="dark" className="mode">
-            <Header />
-            <div style={{ height: '1000px', display: 'flex' }}>
-                <div style={{ width: '30%', marginLeft: '20px' }}>
-                    <BlockItem />
-                    <BlockItem />
-                    <BlockItem />
-                </div>
-                <div style={{ width: '30%' }}>456</div>
-            </div>
-            <div id="container">
-                <Footer />
-            </div>
+            <Router>
+                <Header />
+                
+                <Routes>
+                    <Route path='/' element={<Home/>}/>
+                </Routes>
+                <Footer/>
+            </Router>
+            
         </div>
     );
 }

@@ -1,13 +1,14 @@
 import React from 'react';
 import st from './BlockItem.module.scss';
 import SecondaryButton from '../SecondaryButton/SecondaryButton';
+import HashTag from '../HashTag/HashTag';
 export default function BlockItem({
     image = 'https://jthemes.net/themes/wp/genz/wp-content/uploads/2023/02/news2-270x257.jpg',
     sticky = 'sticky',
     tagBtn = ['Healthy', 'Technology'],
     headingLink = 'Digital Design That Will Help You Start Your Business',
     title = 'The fancy moon going in little artist painting. Thirty days of lavender in the dreamy light inside. Other perfect oh plants, for and again.…',
-    tag = ['#Lifestyle', '#Travel', '#Lifestyle', '#Travel', '#Lifestyle', '#Travel', '#Lifestyle'],
+    tags = ['Lifestyle', 'Travel', 'Lifestyle'],
     time = '1 min to read',
 }) {
     return (
@@ -30,10 +31,8 @@ export default function BlockItem({
                 <p className={st.title}>{title}</p>
                 <div className={st.blockBottom}>
                     <span className={`${st.hashtag} subtext`}>
-                        {tag?.map((item, index) => (
-                            <a href="" className={st.hashtaglink}>
-                                {item}
-                            </a>
+                        {tags?.map((tag, index) => (
+                            <HashTag key={index}>{tag}</HashTag>
                         ))}
                     </span>
                     <span className={`${st.time} subtext`}>{time}</span>

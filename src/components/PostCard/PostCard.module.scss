@@ -4,7 +4,7 @@
     border: 1px solid rgba(255,255,255,.25);
     border-radius: .75rem;
     padding: 1rem;
-    color: var(--white);
+    color: var(--text);
     background-color: var(--card-bg);
 }
 .imgCtn{
@@ -36,6 +36,7 @@
     }
 }
 .title{
+    color: var(--text);
     font-size: 1.3rem;
     font-weight: bold;
     a{
@@ -65,6 +66,6 @@
     justify-content: center; align-items: center;
     padding: .5rem;
     background-clip: content-box;
-    background-color: var(--dark3);
+    background-color: var(--bg);
     border-radius: 1rem;
 }

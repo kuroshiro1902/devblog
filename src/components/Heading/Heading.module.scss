@@ -1,0 +1,19 @@
+.heading {
+    margin-bottom: 40px;
+
+    .headingTitle {
+        display: block;
+        width: fit-content;
+        margin-bottom: 10px;
+        font-size: 36px;
+        font-weight: bold;
+        background: linear-gradient(225deg, rgb(11, 209, 209), rgb(14, 165, 234));
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+
+    .headingDesc {
+        font-size: 20px;
+        opacity: 0.75;
+    }
+}

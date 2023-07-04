@@ -27,7 +27,7 @@
   background-color: #fff;
   color: var(--dark2);
   /*  */
-  --text: dark(--dark3);
+  --text: var(--dark1);
   --bg: #fff;
   --card-bg: #e8edf5;
 }
@@ -48,8 +48,8 @@ a:hover{
   border-radius: 2rem !important;
 }
 .subtext{
-  font-size: 12px;
-  opacity: .6;
+  font-size: 14px;
+  opacity: .75;
 }
 .move-up{
   transition: transform .5s, box-shadow .25s;
