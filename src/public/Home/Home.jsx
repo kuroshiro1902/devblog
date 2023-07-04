@@ -17,7 +17,7 @@ function Home() {
                     <TopicCard />
                 </Slider>
             </div>
-            {/* <div style={{ display: 'flex', gap: '1rem' }}>
+            <div style={{ display: 'flex', gap: '1rem' }}>
                 <PostCard />
                 <PostCard />
             </div>
@@ -53,7 +53,7 @@ function Home() {
                 <PrimaryButton circle>1</PrimaryButton>
                 <PrimaryButton circle>1</PrimaryButton>
                 <PrimaryButton circle>1</PrimaryButton>
-            </div> */}
+            </div>
         </div>
     );
 }
