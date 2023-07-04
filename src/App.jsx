@@ -1,15 +1,21 @@
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
-import { PostCard, Slider, TopicCard } from './components';
-import { Footer, Header } from './public';
+import { BlockItem, PostCard, SecondaryButton, Slider, TopicCard } from './components';
+import { Footer, Header, Posts } from './public';
+import Home from './public/Home/Home';
 
 function App() {
     return (
-        <div id="dark" className='mode'>
+        <div id="dark" className="mode">
+        <Router>
             <Header />
-            <div id='container'>
-                <Footer />
+                <Link to='/posts'>go to post page</Link>
+                <Routes>
+                    <Route path='/posts' element={<Posts />} />
+                    <Route path='/' element={<Home/>} />
+                </Routes>
+        </Router>
             </div>
-        </div>
     );
 }
 

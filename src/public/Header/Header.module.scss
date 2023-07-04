@@ -1,13 +1,15 @@
 .header {
-    background-color: #fff;
+    background-color: inherit;
     display: flex;
     width: 100%;
     padding: 1rem 4rem;
     justify-content: space-between;
     align-items: center;
     transition: all 0.5s linear;
+    z-index: 1000;
     .headerNav {
         display: flex;
+
         justify-content: center;
 
         li {

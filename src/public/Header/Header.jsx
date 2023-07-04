@@ -5,13 +5,16 @@ export default function Header() {
     const headerRef = useRef(null);
     useEffect(() => {
         const hideHeader = () => {
-            if (window.pageYOffset > 98 && window.pageYOffset < 600) {
+            if (window.pageYOffset > 98 && window.pageYOffset < 500) {
                 headerRef.current.style.top = '-50px';
-            } else if (window.pageYOffset > 600) {
+                headerRef.current.style.borderBottom = '1px solid #ccc';
+            } else if (window.pageYOffset > 500) {
                 headerRef.current.style.position = 'fixed';
                 headerRef.current.style.top = '0';
+                headerRef.current.style.borderBottom = '1px solid #ccc';
             } else {
                 headerRef.current.style.position = 'unset';
+                headerRef.current.style.borderBottom = 'none';
                 // headerRef.current.style.top = '0';
             }
         };

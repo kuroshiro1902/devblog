@@ -1,0 +1,81 @@
+// h4 {
+//     overflow: hidden;
+//     display: -webkit-box;
+//     -webkit-line-clamp: 2;
+//     -webkit-box-orient: vertical;
+// }
+
+.blockItem {
+    display: flex;
+    width: 100%;
+    margin-bottom: 50px;
+
+    .blockImage {
+        width: 270px;
+        height: 270px;
+        border-radius: 16px;
+        overflow: hidden;
+        margin-right: 20px;
+        flex-shrink: 0;
+
+        .blockImg {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+    }
+
+    .blockContent {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+
+        .blockBadge {
+            margin-bottom: 4px;
+
+            .blockstiky {
+                display: inline-block;
+                border-radius: 50px;
+                padding: 6px 15px;
+                font-size: 13px;
+                font-weight: 700;
+                line-height: 16px;
+                background-color: #0ea5ea;
+                color: #ffffff;
+            }
+        }
+
+        .heading {
+            font-weight: 700;
+            font-size: 24px;
+            margin: 15px 0;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .title {
+            font-size: 14px;
+            font-weight: 400;
+            margin-bottom: 16px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+
+        .blockBottom {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            .tag {
+            }
+
+            .time {
+            }
+        }
+    }
+}
