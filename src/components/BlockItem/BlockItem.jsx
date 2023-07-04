@@ -8,7 +8,7 @@ export default function BlockItem({
     tagBtn = ['Healthy', 'Technology'],
     headingLink = 'Digital Design That Will Help You Start Your Business',
     title = 'The fancy moon going in little artist painting. Thirty days of lavender in the dreamy light inside. Other perfect oh plants, for and again.…',
-    tags = ['Lifestyle', 'Travel', 'Lifestyle', 'Travel', 'Lifestyle', 'Travel', 'Lifestyle'],
+    tags = ['Lifestyle', 'Travel', 'Lifestyle'],
     time = '1 min to read',
 }) {
     return (
