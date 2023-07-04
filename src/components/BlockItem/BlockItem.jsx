@@ -7,7 +7,7 @@ export default function BlockItem({
     tagBtn = ['Healthy', 'Technology'],
     headingLink = 'Digital Design That Will Help You Start Your Business',
     title = 'The fancy moon going in little artist painting. Thirty days of lavender in the dreamy light inside. Other perfect oh plants, for and again.…',
-    tag = ['#Lifestyle', '#Travel', '#Lifestyle'],
+    tag = ['#Lifestyle', '#Travel', '#Lifestyle', '#Travel', '#Lifestyle', '#Travel', '#Lifestyle'],
     time = '1 min to read',
 }) {
     return (
@@ -19,15 +19,23 @@ export default function BlockItem({
                 <div className={st.blockBadge}>
                     {sticky ? <div className={st.blockstiky}>{sticky}</div> : ''}
                     {tagBtn?.map((item, index) => (
-                        <SecondaryButton key={index} rounded>
+                        // <div className={st.blockBtnTag} key={index}>
+                        <SecondaryButton key={index} rounded className={st.tag}>
                             {item}
                         </SecondaryButton>
+                        // </div>
                     ))}
                 </div>
                 <a className={st.heading}>{headingLink}</a>
                 <p className={st.title}>{title}</p>
                 <div className={st.blockBottom}>
-                    <span className={`${st.tag} subtext`}>{tag}</span>
+                    <span className={`${st.hashtag} subtext`}>
+                        {tag?.map((item, index) => (
+                            <a href="" className={st.hashtaglink}>
+                                {item}
+                            </a>
+                        ))}
+                    </span>
                     <span className={`${st.time} subtext`}>{time}</span>
                 </div>
             </div>
