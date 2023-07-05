@@ -31,11 +31,11 @@ function Home() {
             <div>
                 <Heading title={`Editor's picked`} description="Featured and highly rated articles" />
                 <div className={s.postCard}>
-                    <div>
+                    <div className={s.postCardsCtn}>
                         <PostCard />
                         <PostCard />
                     </div>
-                    <div>
+                    <div className={s.postCardsCtn}>
                         <PostCard />
                         <PostCard />
                         <PostCard />
@@ -47,7 +47,7 @@ function Home() {
             </div>
             <div className={s.posts}>
                 <div>
-                    <Heading title="Recent posts" description={`Don't miss the latest trends`} />
+                    <Heading title="Popular posts" description={`Don't miss the lastest trend`} />
                     <div>
                         <BlockItem />
                         <BlockItem />
@@ -57,20 +57,21 @@ function Home() {
                     </div>
                 </div>
                 <div>
-                    <RecentBlock title="Popular Posts">
-                        <PostItem />
-                        <PostItem />
-                        <PostItem />
-                        <PostItem />
-                        <PostItem />
-                    </RecentBlock>
-                    <RecentBlock title="Popular Posts">
-                        <PostItem author="Author" />
-                        <PostItem author="Author" />
-                        <PostItem author="Author" />
-                        <PostItem author="Author" />
-                        <PostItem author="Author" />
-                    </RecentBlock>
+                    <div style={{ marginBottom: '1.75rem' }}>
+                        <RecentBlock title="Recent posts">
+                            <PostItem />
+                            <PostItem />
+                            <PostItem />
+                            <PostItem />
+                        </RecentBlock>
+                    </div>
+                    <div>
+                        <RecentBlock title="Recent comments">
+                            <PostItem author="Author" />
+                            <PostItem author="Author" />
+                            <PostItem author="Author" />
+                        </RecentBlock>
+                    </div>
                 </div>
             </div>
             <div className={s.pagination}>

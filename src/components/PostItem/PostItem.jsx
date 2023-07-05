@@ -10,7 +10,13 @@ export default function PostItem({
         <div className={st.postItem}>
             <img className={st.itemImage} src={image} alt="đây chắc chắn là ảnh thề :))" />
             <article className={st.itemArticle}>
-                {author ? <h3>{author}</h3> : ''}
+                {author ? (
+                    <p>
+                        <strong>{author} </strong>on
+                    </p>
+                ) : (
+                    ''
+                )}
                 <p className={st.itemLink}>{textLink}</p>
                 <p className={`subtext`}>{date}</p>
             </article>

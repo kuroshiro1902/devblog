@@ -1,11 +1,11 @@
 .blockItem {
     display: flex;
     width: 100%;
-    margin-bottom: 50px;
-
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
     .blockImage {
         width: 270px;
-        height: 270px;
+        aspect-ratio: 1/1;
         border-radius: 16px;
         overflow: hidden;
         margin-right: 20px;
@@ -93,6 +93,21 @@
 }
 
 .tag {
-    padding: 0.7rem;
+    padding: 0.5rem 0.7rem;
     font-size: 12px;
+}
+@media screen and (max-width: 920px) {
+    .blockItem {
+        flex-direction: column;
+        border-bottom: 1px solid var(--border-bottom);
+        .blockImage {
+            width: 220px;
+            margin-bottom: 1rem;
+        }
+        .blockContent {
+            .blockBottom {
+                margin-top: 0;
+            }
+        }
+    }
 }

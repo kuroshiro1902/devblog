@@ -3,7 +3,7 @@
     display: flex;
     align-items: flex-start;
     padding: 20px 0 10px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--border-bottom);
     .itemImage {
         width: 50px;
         height: 50px;

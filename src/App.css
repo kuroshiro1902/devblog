@@ -24,6 +24,7 @@
     --text: var(--white);
     --bg: var(--dark3);
     --card-bg: var(--dark2);
+    --border-bottom: rgba(255, 255, 255, 0.15);
 }
 #light {
     background-color: #fff;
@@ -32,6 +33,7 @@
     --text: #2e548c;
     --bg: #fff;
     --card-bg: #e8edf5;
+    --border-bottom: rgba(0, 0, 0, 0.15);
 }
 #container {
     max-width: 1400px;
