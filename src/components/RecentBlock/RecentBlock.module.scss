@@ -1,9 +1,11 @@
-.post {
+.block {
+    min-width: 220px;
     width: 100%;
     padding: 25px;
     border-radius: 16px;
-
-    .postTitle {
+    border-radius: 0.75rem;
+    background-color: var(--card-bg);
+    .title {
         font-size: 20px;
         font-weight: bold;
         margin-bottom: 30px;
@@ -21,7 +23,7 @@
         }
     }
 
-    .postContent {
+    .content {
         width: 100%;
     }
 }

@@ -1,7 +1,9 @@
 .OptionItem {
+    display: block;
+    width: 100%;
     padding: 10px 22px;
 
     &:hover {
-        background-color: #fff;
+        color: var(--cyan);
     }
 }
