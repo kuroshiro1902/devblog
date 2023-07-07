@@ -1,0 +1,20 @@
+.breadcrumb {
+    display: flex;
+    font-size: 15px;
+    font-weight: 500;
+}
+.path {
+    display: flex;
+    & > a {
+        color: #637898;
+        &:hover {
+            color: var(--skyblue);
+        }
+    }
+}
+.arrow {
+    display: flex;
+    padding: 0 0.5rem;
+    align-items: center;
+    opacity: 0.5;
+}

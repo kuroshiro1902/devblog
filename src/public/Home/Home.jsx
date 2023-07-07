@@ -12,7 +12,7 @@ import {
 import s from './Home.module.scss';
 function Home() {
     return (
-        <div className={s.home}>
+        <div id="container" className={s.home}>
             <div>
                 <Heading title="Hot topics" description={`Don't miss out on the latest news`} />
                 <div className={s.slider}>
