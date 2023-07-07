@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import styles from './Header.module.scss';
-import { DarkModeBtn, Logo, NavItem } from '../../components';
+import { DarkModeBtn, Logo, MobieNav, NavItem } from '../../components';
 export default function Header() {
     const headerRef = useRef(null);
     useEffect(() => {
@@ -80,6 +80,45 @@ export default function Header() {
             </ul>
             <div className={styles.headerRinght}>
                 <DarkModeBtn />
+                <div className={styles.burger}>"icon 3/"</div>
+            </div>
+            <div className={styles.mobieHeader}>
+                <div className={styles.overlay}></div>
+                <div className={styles.mobieContent}>
+                    <div className={styles.mobieLogoTop}>
+                        <Logo />
+                        <div className={styles.mobieClose}>X</div>
+                    </div>
+                    <div className={styles.mobieNav}>
+                        <MobieNav
+                            name="Front-end"
+                            icon={false}
+                            options={[
+                                { name: 'HTML', icon: false, link: '/home' },
+                                { name: 'CSS', icon: false, link: '/home' },
+                                { name: 'JavaScript', icon: false, link: '/home' },
+                            ]}
+                        />
+                        <MobieNav
+                            name="Front-end"
+                            icon={false}
+                            options={[
+                                { name: 'HTML', icon: false, link: '/home' },
+                                { name: 'CSS', icon: false, link: '/home' },
+                                { name: 'JavaScript', icon: false, link: '/home' },
+                            ]}
+                        />
+                        <MobieNav
+                            name="Front-end"
+                            icon={false}
+                            options={[
+                                { name: 'HTML', icon: false, link: '/home' },
+                                { name: 'CSS', icon: false, link: '/home' },
+                                { name: 'JavaScript', icon: false, link: '/home' },
+                            ]}
+                        />
+                    </div>
+                </div>
             </div>
         </div>
     );

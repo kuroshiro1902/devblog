@@ -17,4 +17,37 @@
             cursor: pointer;
         }
     }
+    .headerRinght {
+        display: flex;
+    }
+
+    .mobieHeader {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        // background-color: rgba(0, 0, 0, 0.5);
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 90;
+        }
+        .mobieContent {
+            position: absolute;
+            padding: 30px;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            max-width: 370px;
+            background-color: rgba(123, 96, 45, 1);
+            width: calc(100% - 24px);
+            z-index: 100;
+        }
+    }
 }
