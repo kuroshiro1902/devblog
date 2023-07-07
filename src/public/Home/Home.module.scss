@@ -1,7 +1,4 @@
 .home {
-    max-width: 1400px;
-    margin: auto;
-    padding: 4rem 8rem;
     & > * {
         padding: 2rem;
     }
@@ -35,15 +32,8 @@
     display: flex;
     gap: 0.75rem;
 }
-@media screen and (max-width: 1100px) {
-    .home {
-        padding: 2rem 3rem;
-    }
-}
+
 @media screen and (max-width: 920px) {
-    .home {
-        padding: 1.5rem 2rem;
-    }
     .postCardsCtn {
         justify-content: center;
         & > div {
@@ -53,9 +43,6 @@
     }
 }
 @media screen and (max-width: 680px) {
-    .home {
-        padding: 0;
-    }
     .posts {
         display: block;
     }

@@ -2,7 +2,7 @@
     --dark1: #222f43;
     --dark2: #131c31;
     --dark3: #0f172a;
-    --white: #b9e0f2;
+    --white: #94a9c9;
     --gray: #66768f;
     --cyan: #0bd1d1;
     --skyblue: #0ea5ea;
@@ -24,7 +24,7 @@
     --text: var(--white);
     --bg: var(--dark3);
     --card-bg: var(--dark2);
-    --border-bottom: rgba(255, 255, 255, 0.15);
+    --border: rgba(255, 255, 255, 0.15);
 }
 #light {
     background-color: #fff;
@@ -33,11 +33,27 @@
     --text: #2e548c;
     --bg: #fff;
     --card-bg: #e8edf5;
-    --border-bottom: rgba(0, 0, 0, 0.15);
+    --border: rgba(0, 0, 0, 0.15);
 }
 #container {
     max-width: 1400px;
     margin: auto;
+    padding: 4rem 8rem;
+}
+@media screen and (max-width: 1100px) {
+    #container {
+        padding: 2rem 3rem;
+    }
+}
+@media screen and (max-width: 920px) {
+    #container {
+        padding: 1.5rem 2rem;
+    }
+}
+@media screen and (max-width: 680px) {
+    #container {
+        padding: 0;
+    }
 }
 a {
     text-decoration: none;

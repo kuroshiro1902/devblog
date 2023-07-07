@@ -1,3 +1,4 @@
+import Author from '../Author/Author';
 import HashTag from '../HashTag/HashTag';
 import s from './PostCard.module.scss';
 import { AiOutlineClockCircle } from 'react-icons/ai';
@@ -38,17 +39,7 @@ function PostCard({
                 <a>{title}</a>
             </div>
             <div className={s.foot}>
-                <div className={s.author}>
-                    <a>
-                        <img src="https://jthemes.net/themes/wp/genz/wp-content/uploads/2023/02/news2.jpg" />
-                    </a>
-                    <div>
-                        <h4>
-                            <a>Author</a>
-                        </h4>
-                        <div className="subtext">Feb 12 2023</div>
-                    </div>
-                </div>
+                <Author />
                 <div className={s.readMore + ' subtext'}>
                     <a>&nbsp;Read more&nbsp;</a>
                 </div>
