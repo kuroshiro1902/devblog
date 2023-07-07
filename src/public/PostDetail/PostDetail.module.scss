@@ -25,3 +25,19 @@
     border-left: 1px solid var(--border);
     width: 25%;
 }
+.main {
+    gap: 1rem;
+}
+.content {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+}
+@media screen and (max-width: 680px) {
+    .heading {
+        flex-direction: column;
+    }
+    .leftHeading,
+    .rightHeading {
+        width: initial;
+    }
+}

@@ -8,7 +8,7 @@ function App() {
     return (
         <div id="dark" className="mode">
             <Router>
-                <Header />
+                {/* <Header /> */}
                 <div id="container">
                     <Routes>
                         <Route path="/posts/:slug" element={<PostDetail />} />
