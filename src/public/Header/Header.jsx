@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import styles from './Header.module.scss';
-import { DarkModeBtn, Logo, MobieNav, NavItem } from '../../components';
+import s from './Header.module.scss';
+import { DarkModeBtn, Logo, MobileNav, NavItem } from '../../components';
 export default function Header() {
     const headerRef = useRef(null);
     useEffect(() => {
@@ -22,11 +22,11 @@ export default function Header() {
         return () => window.removeEventListener('scroll', hideHeader);
     });
     return (
-        <div ref={headerRef} className={styles.header}>
-            <div className={styles.headerLogo}>
+        <div ref={headerRef} className={s.header}>
+            <div className={s.headerLogo}>
                 <Logo />
             </div>
-            <ul className={styles.headerNav}>
+            <ul className={s.headerNav}>
                 <li>
                     <NavItem
                         name="Front-end"
@@ -72,25 +72,25 @@ export default function Header() {
                     />
                 </li>
                 <li>
-                    <NavItem name="Others" icon={false} link="#" />
+                    <NavItem name="Others" icon={false} link="/" />
                 </li>
                 <li>
                     <NavItem name="About Me" icon={false} link="#" />
                 </li>
             </ul>
-            <div className={styles.headerRinght}>
+            <div className={s.headerRinght}>
                 <DarkModeBtn />
-                <div className={styles.burger}>"icon 3/"</div>
+                <div className={s.burger}>"icon 3/"</div>
             </div>
-            <div className={styles.mobieHeader}>
-                <div className={styles.overlay}></div>
-                <div className={styles.mobieContent}>
-                    <div className={styles.mobieLogoTop}>
+            <div className={s.mobieHeader}>
+                <div className={s.overlay}></div>
+                <div className={s.mobieContent}>
+                    <div className={s.mobieLogoTop}>
                         <Logo />
-                        <div className={styles.mobieClose}>X</div>
+                        <div className={s.mobieClose}>X</div>
                     </div>
-                    <div className={styles.mobieNav}>
-                        <MobieNav
+                    <div className={s.mobileNav}>
+                        <MobileNav
                             name="Front-end"
                             icon={false}
                             options={[
@@ -99,7 +99,7 @@ export default function Header() {
                                 { name: 'JavaScript', icon: false, link: '/home' },
                             ]}
                         />
-                        <MobieNav
+                        <MobileNav
                             name="Front-end"
                             icon={false}
                             options={[
@@ -108,7 +108,7 @@ export default function Header() {
                                 { name: 'JavaScript', icon: false, link: '/home' },
                             ]}
                         />
-                        <MobieNav
+                        <MobileNav
                             name="Front-end"
                             icon={false}
                             options={[

@@ -9,11 +9,13 @@ function App() {
         <div id="dark" className="mode">
             <Router>
                 <Header />
-                <Routes>
-                    <Route path="/posts/:slug" element={<PostDetail />} />
-                    <Route path="/posts" element={<Posts />} />
-                    <Route path="/" element={<Home />} />
-                </Routes>
+                <div id="container">
+                    <Routes>
+                        <Route path="/posts/:slug" element={<PostDetail />} />
+                        <Route path="/posts" element={<Posts />} />
+                        <Route path="/" element={<Home />} />
+                    </Routes>
+                </div>
                 <Footer />
             </Router>
         </div>
