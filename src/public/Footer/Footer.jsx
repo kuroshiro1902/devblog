@@ -1,7 +1,8 @@
 import s from './Footer.module.scss';
 import g from '../../style.module.scss';
 import clsx from 'clsx';
-import { Logo, PrimaryButton, SecondaryButton, SocialLink, TextFormInput } from '../../components';
+import { Logo, PrimaryButton, SocialLink, TextFormInput } from '../../components';
+import { HiOutlineUser, HiOutlineMail } from 'react-icons/hi';
 function Footer() {
     return (
         <div className={clsx(s.container, g.flex, g.flexCol)}>
@@ -55,20 +56,16 @@ function Footer() {
                 <div>
                     <div className={s.title}>Newsletter</div>
                     <form className={clsx(g.flex, g.flexCol, s.section)}>
-                        <TextFormInput />
-                        <TextFormInput />
+                        <TextFormInput icon={<HiOutlineUser />} />
+                        <TextFormInput icon={<HiOutlineMail />} placeholder="Enter your email" type="email" />
                         <div>
                             <PrimaryButton>Subscribe</PrimaryButton>
-                            <SecondaryButton>SecondaryBTn</SecondaryButton>
                         </div>
                     </form>
                 </div>
             </div>
             <div className={clsx(g.flex, s.about)}>
-                <div className={s.license}>
-                    © 2023 Created by <a href="https://github.com/kuroshiro1902">Son</a> and{' '}
-                    <a href="https://github.com/nguyen2598">Nguyen</a>
-                </div>
+                <div className={s.license}>© July 2023</div>
                 <div className={clsx(g.flex, s.social)}>
                     <SocialLink href="#">Facebook</SocialLink>
                     <SocialLink href="#">Facebook</SocialLink>

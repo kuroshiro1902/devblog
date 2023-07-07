@@ -1,7 +1,10 @@
 import React from 'react';
 import OptionItem from '../OptionItem/OptionItem';
-import st from './MobieNav.module.scss';
+
 import { Link } from 'react-router-dom';
+
+import st from './MobileNav.module.scss';
+
 export default function MobieNav({ name, icon, options, link }) {
     return (
         <details>

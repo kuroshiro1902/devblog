@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styles from './Header.module.scss';
-import { DarkModeBtn, Logo, MobieNav, NavItem } from '../../components';
+
+import s from './Header.module.scss';
+import { DarkModeBtn, Logo, MobileNav, NavItem } from '../../components';
 import { FaBars } from 'react-icons/fa';
 
 import { IoClose } from 'react-icons/io5';
@@ -30,11 +31,12 @@ export default function Header() {
     });
 
     return (
-        <div ref={headerRef} className={styles.header}>
-            <div className={styles.headerLogo}>
+        <div ref={headerRef} className={s.header}>
+            <div className={s.headerLogo}>
                 <Logo />
             </div>
-            <ul className={`${styles.headerNav} `}>
+
+            <ul className={`${s.headerNav} `}>
                 <li>
                     <NavItem
                         name="Front-end"
@@ -86,23 +88,24 @@ export default function Header() {
                     <NavItem name="About Me" icon={false} link="#" />
                 </li>
             </ul>
-            <div className={styles.headerRinght}>
+            <div className={s.headerRinght}>
                 <DarkModeBtn />
-                <div className={styles.burger} onClick={toggleNav}>
+
+                <div className={s.burger} onClick={toggleNav}>
                     <FaBars size={24} />
                 </div>
             </div>
-            <div className={`${styles.mobieHeader} ${!toggle && styles.hidden}`}>
-                <div className={styles.overlay} onClick={toggleNav}></div>
-                <div className={styles.mobieContent}>
-                    <div className={styles.mobieLogoTop}>
+            <div className={`${s.mobieHeader} ${!toggle && s.hidden}`}>
+                <div className={s.overlay} onClick={toggleNav}></div>
+                <div className={s.mobieContent}>
+                    <div className={s.mobieLogoTop}>
                         <Logo />
-                        <div className={styles.mobieClose} onClick={toggleNav}>
+                        <div className={s.mobieClose} onClick={toggleNav}>
                             <IoClose size={24} />
                         </div>
                     </div>
-                    <div className={styles.mobieNav}>
-                        <MobieNav
+                    <div className={s.MobileNav}>
+                        <MobileNav
                             name="Front-end"
                             icon={false}
                             options={[
@@ -111,7 +114,7 @@ export default function Header() {
                                 { name: 'JavaScript', icon: false, link: '/home' },
                             ]}
                         />
-                        <MobieNav
+                        <MobileNav
                             name="Front-end"
                             icon={false}
                             options={[
@@ -120,7 +123,7 @@ export default function Header() {
                                 { name: 'JavaScript', icon: false, link: '/home' },
                             ]}
                         />
-                        <MobieNav
+                        <MobileNav
                             name="Front-end"
                             icon={false}
                             options={[

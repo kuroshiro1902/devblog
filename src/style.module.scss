@@ -3,16 +3,16 @@
     padding: 0;
     box-sizing: border-box;
 }
-body{
+body {
     min-width: 320px;
     min-height: 100vh;
 }
-.flex{
+.flex {
     display: flex;
 }
-.flexCol{
+.flexCol {
     flex-direction: column;
 }
-.textJustify{
+.textJustify {
     text-align: justify;
 }

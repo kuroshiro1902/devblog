@@ -5,10 +5,9 @@ import { Link } from 'react-router-dom';
 
 export default function NavItem({ name, icon, options, link }) {
     return (
-        <div className={st.NavItem}>
-            <Link to={Link} className={st.NavItemName}>
-                {name}
-            </Link>
+        <a className={st.NavItem} href={link ? link : null}>
+            <div className={st.NavItemName}>{name}</div>
+
             <div className={st.NavItemIcon}>{icon || '1'}</div>
             {options && (
                 <div className={st.NavItemSub}>
@@ -19,6 +18,6 @@ export default function NavItem({ name, icon, options, link }) {
                     ))}
                 </div>
             )}
-        </div>
+        </a>
     );
 }

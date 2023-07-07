@@ -1,4 +1,49 @@
-.home{
-    max-width: 1400px;
-    margin: auto;
+.home {
+    & > * {
+        padding: 2rem;
+    }
+}
+.slider {
+    height: 18rem;
+}
+.postCard {
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    & > * {
+        display: flex;
+        gap: 2rem;
+        justify-content: space-between;
+    }
+}
+.showMoreBtn {
+    button {
+        padding: 1.2rem 1.5rem;
+        margin: auto;
+    }
+}
+.posts {
+    display: flex;
+    gap: 2rem;
+}
+.pagination {
+    padding-left: 1rem;
+    display: flex;
+    gap: 0.75rem;
+}
+
+@media screen and (max-width: 920px) {
+    .postCardsCtn {
+        justify-content: center;
+        & > div {
+            max-width: 260px;
+        }
+        flex-wrap: wrap;
+    }
+}
+@media screen and (max-width: 680px) {
+    .posts {
+        display: block;
+    }
 }
