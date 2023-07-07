@@ -4,7 +4,7 @@ import st from './NavItem.module.scss';
 
 export default function NavItem({ name, icon, options, link }) {
     return (
-        <div className={st.NavItem}>
+        <a className={st.NavItem} href={link ? link : false}>
             <div className={st.NavItemName}>{name}</div>
             <div className={st.NavItemIcon}>{icon || '1'}</div>
             {options && (
@@ -16,6 +16,6 @@ export default function NavItem({ name, icon, options, link }) {
                     ))}
                 </div>
             )}
-        </div>
+        </a>
     );
 }

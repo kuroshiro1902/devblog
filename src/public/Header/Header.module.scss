@@ -17,4 +17,63 @@
             cursor: pointer;
         }
     }
+    .headerRinght {
+        display: flex;
+
+        .burger {
+            display: none;
+            cursor: pointer;
+        }
+    }
+
+    .mobieHeader {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        // background-color: rgba(0, 0, 0, 0.5);
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9000;
+        }
+        .mobieContent {
+            position: absolute;
+            padding: 30px;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            max-width: 370px;
+            background-color: var(--card-bg);
+            width: calc(100% - 24px);
+            z-index: 10000;
+
+            .mobieLogoTop {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.hidden {
+    display: none !important;
+}
+
+@media screen and (max-width: 920px) {
+    .headerNav {
+        display: none !important;
+    }
+
+    .burger {
+        display: block !important;
+    }
 }
