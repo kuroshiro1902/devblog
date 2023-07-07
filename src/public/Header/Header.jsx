@@ -1,8 +1,14 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import s from './Header.module.scss';
 import { DarkModeBtn, Logo, MobileNav, NavItem } from '../../components';
+import { FaBars } from 'react-icons/fa';
+import { IoClose } from 'react-icons/io5';
 export default function Header() {
     const headerRef = useRef(null);
+    const [toggle, setToggle] = useState(false);
+    const toggleNav = () => {
+        setToggle(!toggle);
+    };
     useEffect(() => {
         const hideHeader = () => {
             if (window.pageYOffset > 98 && window.pageYOffset < 500) {
@@ -21,12 +27,13 @@ export default function Header() {
         window.addEventListener('scroll', hideHeader);
         return () => window.removeEventListener('scroll', hideHeader);
     });
+
     return (
         <div ref={headerRef} className={s.header}>
             <div className={s.headerLogo}>
                 <Logo />
             </div>
-            <ul className={s.headerNav}>
+            <ul className={`${s.headerNav} `}>
                 <li>
                     <NavItem
                         name="Front-end"
@@ -72,7 +79,7 @@ export default function Header() {
                     />
                 </li>
                 <li>
-                    <NavItem name="Others" icon={false} link="/" />
+                    <NavItem name="Others" icon={false} link="#" />
                 </li>
                 <li>
                     <NavItem name="About Me" icon={false} link="#" />
@@ -80,16 +87,20 @@ export default function Header() {
             </ul>
             <div className={s.headerRinght}>
                 <DarkModeBtn />
-                <div className={s.burger}>"icon 3/"</div>
+                <div className={s.burger} onClick={toggleNav}>
+                    <FaBars size={24} />
+                </div>
             </div>
-            <div className={s.mobieHeader}>
-                <div className={s.overlay}></div>
+            <div className={`${s.mobieHeader} ${!toggle && s.hidden}`}>
+                <div className={s.overlay} onClick={toggleNav}></div>
                 <div className={s.mobieContent}>
                     <div className={s.mobieLogoTop}>
                         <Logo />
-                        <div className={s.mobieClose}>X</div>
+                        <div className={s.mobieClose} onClick={toggleNav}>
+                            <IoClose size={24} />
+                        </div>
                     </div>
-                    <div className={s.mobileNav}>
+                    <div className={s.MobileNav}>
                         <MobileNav
                             name="Front-end"
                             icon={false}

@@ -5,14 +5,16 @@ import st from './OptionItem.module.scss';
 
 export default function OptionItem({ icon, name, link }) {
     return (
-        <div className={clsx(st.OptionItem)}>
+        <Link to={link} className={clsx(st.OptionItem)}>
             {/* <Link to={link}> */}
-            <a href={link}>
-                <i className="icon">{icon}</i>
+            <div className={st.OptionItemLink}>
+                <i cldiv className={OptionItem} ssName="icon">
+                    {icon}
+                </i>
                 <span>{name}</span>
-            </a>
+            </div>
 
             {/* </Link> */}
-        </div>
+        </Link>
     );
 }
