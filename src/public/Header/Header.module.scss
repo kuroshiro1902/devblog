@@ -19,6 +19,11 @@
     }
     .headerRinght {
         display: flex;
+
+        .burger {
+            display: none;
+            cursor: pointer;
+        }
     }
 
     .mobieHeader {
@@ -36,7 +41,7 @@
             right: 0;
             left: 0;
             background-color: rgba(0, 0, 0, 0.5);
-            z-index: 90;
+            z-index: 9000;
         }
         .mobieContent {
             position: absolute;
@@ -45,9 +50,30 @@
             bottom: 0;
             right: 0;
             max-width: 370px;
-            background-color: rgba(123, 96, 45, 1);
+            background-color: var(--card-bg);
             width: calc(100% - 24px);
-            z-index: 100;
+            z-index: 10000;
+
+            .mobieLogoTop {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                cursor: pointer;
+            }
         }
+    }
+}
+
+.hidden {
+    display: none !important;
+}
+
+@media screen and (max-width: 920px) {
+    .headerNav {
+        display: none !important;
+    }
+
+    .burger {
+        display: block !important;
     }
 }

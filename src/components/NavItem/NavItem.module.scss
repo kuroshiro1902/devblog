@@ -6,13 +6,15 @@
         position: absolute;
         top: calc(20px + 100%);
         left: -12px;
-        border: 1px solid #fff;
+        border: 1px solid #878484;
         border-radius: 10px;
         display: flex;
         flex-direction: column;
         padding: 8px 0;
         width: 188.6px;
         display: none;
+        color: var(--text);
+        background-color: var(--card-bg);
 
         &::before {
             content: '';
