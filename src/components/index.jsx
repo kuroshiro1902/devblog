@@ -13,5 +13,7 @@ export { default as TopicCard } from './TopicCard/TopicCard';
 export { default as Slider } from './Slider/Slider';
 export { default as BlockItem } from './BlockItem/BlockItem';
 export { default as HashTag } from './HashTag/HashTag';
+export { default as BreadCrumb } from './BreadCrumb/BreadCrumb';
+export { default as Author } from './Author/Author';
 export { default as Heading } from './Heading/Heading';
 export { default as MobieNav } from './MobieNav/MobieNav';

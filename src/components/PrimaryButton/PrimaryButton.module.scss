@@ -1,27 +1,29 @@
-.button{
+.button {
     --blue1: #0bd1d1;
     --blue2: #0ea5ea;
-    padding: .75rem 1rem;
-    border-radius: .5rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
     border: none;
     color: #fff;
     cursor: pointer;
-    font-size: .9rem;
+    font-size: 0.9rem;
     font-weight: 700;
     background-image: linear-gradient(to left, var(--blue1), var(--blue2));
-    &:hover{
+    &:hover {
         box-shadow: 0 0 4px var(--blue1);
     }
 }
-.circle{
+.circle {
     border-radius: 50% !important;
+    height: 40px;
+    aspect-ratio: 1/1;
 }
-.disabled{
+.disabled {
     --blue1: rgba(63, 105, 105, 0.753);
     --blue2: #365463;
     cursor: default;
     background-image: linear-gradient(to left, var(--blue1), var(--blue2));
-    &:hover{
+    &:hover {
         box-shadow: unset;
         transform: unset;
     }

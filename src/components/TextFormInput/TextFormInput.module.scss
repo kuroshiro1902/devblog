@@ -1,7 +1,8 @@
-.inputCtn{
-    padding: .5rem 0;
+.inputCtn {
+    padding: 0.5rem 0;
     border-bottom: 1px solid #ddd;
-    input{
+    input {
+        margin-left: 4px;
         color: var(--text);
         background-color: transparent;
         border: none;

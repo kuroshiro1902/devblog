@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import { BlockItem, PostCard, SecondaryButton, Slider, TopicCard } from './components';
-import { Footer, Header, Posts } from './public';
+import { Footer, Header, PostDetail, Posts } from './public';
 import Home from './public/Home/Home';
 
 function App() {
@@ -9,13 +9,13 @@ function App() {
         <div id="dark" className="mode">
             <Router>
                 <Header />
-                
                 <Routes>
-                    <Route path='/' element={<Home/>}/>
+                    <Route path="/posts/:slug" element={<PostDetail />} />
+                    <Route path="/posts" element={<Posts />} />
+                    <Route path="/" element={<Home />} />
                 </Routes>
-                <Footer/>
+                <Footer />
             </Router>
-            
         </div>
     );
 }
