@@ -26,11 +26,18 @@
     width: 25%;
 }
 .main {
-    gap: 1rem;
+    gap: 1.5rem;
 }
 .content {
     padding: 1rem 0;
     border-bottom: 1px solid var(--border);
+}
+.comments {
+    padding: 1.25rem 0;
+}
+.relatedPosts > div {
+    position: sticky;
+    top: 1rem;
 }
 @media screen and (max-width: 680px) {
     .heading {
@@ -39,5 +46,11 @@
     .leftHeading,
     .rightHeading {
         width: initial;
+    }
+    .main {
+        flex-direction: column;
+    }
+    .relatedPosts {
+        position: unset;
     }
 }

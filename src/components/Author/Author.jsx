@@ -1,5 +1,6 @@
 import s from './Author.module.scss';
-function Author() {
+import getTime from '../../utils/getTime';
+function Author({ author = { id: 1, name: 'Author' }, time = new Date() }) {
     return (
         <div className={s.author}>
             <a>
@@ -7,9 +8,9 @@ function Author() {
             </a>
             <div>
                 <h4>
-                    <a>Author</a>
+                    <a>{author.name}</a>
                 </h4>
-                <div className="subtext">Feb 12 2023</div>
+                <div className="subtext">{getTime(time)}</div>
             </div>
         </div>
     );

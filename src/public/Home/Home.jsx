@@ -49,27 +49,27 @@ function Home() {
                 <div>
                     <Heading title="Popular posts" description={`Don't miss the lastest trend`} />
                     <div>
-                        <BlockItem />
-                        <BlockItem />
-                        <BlockItem />
-                        <BlockItem />
-                        <BlockItem />
+                        <PostItem />
+                        <PostItem />
+                        <PostItem />
+                        <PostItem />
+                        <PostItem />
                     </div>
                 </div>
                 <div>
                     <div style={{ marginBottom: '1.75rem' }}>
                         <RecentBlock title="Recent posts">
-                            <PostItem />
-                            <PostItem />
-                            <PostItem />
-                            <PostItem />
+                            <BlockItem />
+                            <BlockItem />
+                            <BlockItem />
+                            <BlockItem />
                         </RecentBlock>
                     </div>
                     <div>
                         <RecentBlock title="Recent comments">
-                            <PostItem author="Author" />
-                            <PostItem author="Author" />
-                            <PostItem author="Author" />
+                            <BlockItem author={'author'} />
+                            <BlockItem author={'author'} />
+                            <BlockItem author={'author'} />
                         </RecentBlock>
                     </div>
                 </div>

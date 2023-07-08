@@ -17,3 +17,4 @@ export { default as BreadCrumb } from './BreadCrumb/BreadCrumb';
 export { default as Author } from './Author/Author';
 export { default as Heading } from './Heading/Heading';
 export { default as MobileNav } from './MobileNav/MobileNav';
+export { default as Comment } from './Comment/Comment';
