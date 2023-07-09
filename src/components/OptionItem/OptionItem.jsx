@@ -8,9 +8,7 @@ export default function OptionItem({ icon, name, link }) {
         <Link to={link} className={clsx(st.OptionItem)}>
             {/* <Link to={link}> */}
             <div className={st.OptionItemLink}>
-                <i cldiv className={OptionItem} ssName="icon">
-                    {icon}
-                </i>
+                <i>{icon}</i>
                 <span>{name}</span>
             </div>
 

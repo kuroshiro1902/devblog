@@ -4,8 +4,16 @@ import st from './NavItem.module.scss';
 import { Link } from 'react-router-dom';
 
 export default function NavItem({ name, icon, options, link }) {
+    if (link) {
+        return (
+            <a className={st.NavItem} href={link}>
+                <div className={st.NavItemName}>{name}</div>
+                <div className={st.NavItemIcon}>{icon || '1'}</div>
+            </a>
+        );
+    }
     return (
-        <a className={st.NavItem} href={link ? link : null}>
+        <div className={st.NavItem}>
             <div className={st.NavItemName}>{name}</div>
 
             <div className={st.NavItemIcon}>{icon || '1'}</div>
@@ -18,6 +26,6 @@ export default function NavItem({ name, icon, options, link }) {
                     ))}
                 </div>
             )}
-        </a>
+        </div>
     );
 }

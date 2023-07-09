@@ -16,3 +16,14 @@ body {
 .textJustify {
     text-align: justify;
 }
+.content {
+    & > * {
+        margin-bottom: 1.25rem;
+    }
+    & > p {
+    }
+    & > img {
+        display: block;
+        width: 100%;
+    }
+}

@@ -1,0 +1,13 @@
+#editor {
+    padding: 1rem 0;
+}
+.quill {
+    .ql-stroke,
+    .ql-stroke span {
+        stroke: var(--text);
+        color: var(--text);
+    }
+    .ql-editor {
+        min-height: 260px;
+    }
+}
