@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
+
 import s from './Header.module.scss';
 import { DarkModeBtn, Logo, MobileNav, NavItem } from '../../components';
 import { FaBars } from 'react-icons/fa';
+
 import { IoClose } from 'react-icons/io5';
 export default function Header() {
     const headerRef = useRef(null);
@@ -33,6 +35,7 @@ export default function Header() {
             <div className={s.headerLogo}>
                 <Logo />
             </div>
+
             <ul className={`${s.headerNav} `}>
                 <li>
                     <NavItem
@@ -87,6 +90,7 @@ export default function Header() {
             </ul>
             <div className={s.headerRinght}>
                 <DarkModeBtn />
+
                 <div className={s.burger} onClick={toggleNav}>
                     <FaBars size={24} />
                 </div>
