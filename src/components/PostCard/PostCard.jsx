@@ -21,7 +21,7 @@ function PostCard({
     return (
         <div className={s.postCard}>
             <div className={s.imgCtn}>
-                <a>
+                <a href="/posts/post1">
                     <img src="https://jthemes.net/themes/wp/genz/wp-content/uploads/2023/02/news2.jpg" />
                 </a>
             </div>
@@ -36,7 +36,7 @@ function PostCard({
                 </div>
             </div>
             <div className={s.title + ' move-up'}>
-                <a>{title}</a>
+                <a href="/posts/post1">{title}</a>
             </div>
             <div className={s.foot}>
                 <Author />

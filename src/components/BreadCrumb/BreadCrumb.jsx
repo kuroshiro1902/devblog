@@ -1,7 +1,6 @@
 import s from './BreadCrumb.module.scss';
 import { FiChevronRight } from 'react-icons/fi';
-function BreadCrumb({ path = [{ name: 'Posts', slug: '/posts' }], target = 'Current post' }) {
-    path = [{ name: 'Home', slug: '/' }].concat(path);
+function BreadCrumb({ path = [{ name: 'Home', slug: '/' }], target = 'Current post' }) {
     return (
         <div className={s.breadcrumb}>
             {path.map((p, i) => (
