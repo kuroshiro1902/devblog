@@ -5,6 +5,9 @@ import { DarkModeBtn, Logo, MobileNav, NavItem } from '../../components';
 import { FaBars } from 'react-icons/fa';
 
 import { IoClose } from 'react-icons/io5';
+import { Link } from 'react-router-dom';
+import Account from './Account';
+
 export default function Header() {
     const headerRef = useRef(null);
     const [toggle, setToggle] = useState(false);
@@ -94,6 +97,15 @@ export default function Header() {
                 <div className={s.burger} onClick={toggleNav}>
                     <FaBars size={24} />
                 </div>
+                {/* <div className={s.loginRegis}>
+                    <Link to="/register" className={s.register}>
+                        Đăng ký
+                    </Link>
+                    <Link to="/login" className={s.login}>
+                        Đăng nhập
+                    </Link>
+                </div> */}
+                <Account />
             </div>
             <div className={`${s.mobieHeader} ${!toggle && s.hidden}`}>
                 <div className={s.overlay} onClick={toggleNav}></div>
