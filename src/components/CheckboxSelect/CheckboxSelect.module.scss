@@ -1,0 +1,46 @@
+.display {
+    padding: 0.5rem;
+    background-color: var(--card-bg);
+    border: 1.5px solid var(--border);
+    cursor: pointer;
+}
+.dropdown {
+    border: 1.5px solid var(--border);
+    background-color: var(--card-bg);
+    margin-top: 0.25rem;
+    padding: 0.5rem;
+}
+.search {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    margin-bottom: 0.25rem;
+    outline: none;
+}
+
+.optionlist {
+    &::-webkit-scrollbar {
+        width: 6px;
+        background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        background-color: var(--skyblue);
+    }
+    max-height: 186px;
+    overflow-y: scroll;
+
+    li {
+        padding-left: 0.5rem;
+        border: 1px solid var(--border);
+        margin-bottom: 0.25rem;
+        display: flex;
+        label {
+            cursor: pointer;
+            flex: 1;
+            padding: 0.5rem;
+        }
+    }
+}

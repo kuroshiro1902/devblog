@@ -3,7 +3,12 @@
 }
 .quill {
     .ql-stroke,
-    .ql-stroke span {
+    .ql-stroke,
+    .ql-picker-label,
+    .ql-strike,
+    .ql-underline,
+    .ql-image,
+    .ql-clean {
         stroke: var(--text);
         color: var(--text);
     }
