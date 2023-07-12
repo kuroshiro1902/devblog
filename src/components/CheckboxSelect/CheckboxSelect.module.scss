@@ -1,14 +1,20 @@
 .display {
+    display: flex;
+    gap: 0.5rem;
     padding: 0.5rem;
     background-color: var(--card-bg);
     border: 1.5px solid var(--border);
     cursor: pointer;
 }
 .dropdown {
+    display: none;
     border: 1.5px solid var(--border);
     background-color: var(--card-bg);
     margin-top: 0.25rem;
     padding: 0.5rem;
+}
+.show {
+    display: block;
 }
 .search {
     width: 100%;
@@ -43,4 +49,10 @@
             padding: 0.5rem;
         }
     }
+}
+.chosen {
+    padding: 0 4px;
+    border: 1px solid var(--border);
+    background-color: var(--text);
+    color: var(--card-bg);
 }

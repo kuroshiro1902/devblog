@@ -1,7 +1,14 @@
 import { useRef, useState } from 'react';
 import { Editor, TextFormInput, CheckboxSelect } from '../../components';
 import s from './WritePost.module.scss';
+const _options = [
+    { id: 'id1', value: 'value1' },
+    { id: 'id2', value: 'value2' },
+    { id: 'id3', value: 'value3' },
+];
 function WritePost() {
+    const [hashtagOptions, setHashtagOptions] = useState([..._options]);
+    const [chosenHashtagOptions, setChosenHashtagOptions] = useState([]);
     const [thumbnailFile, setThumbnailFile] = useState('');
     const thumbnailRef = useRef();
     const handlePreviewImage = (e) => {
@@ -56,7 +63,11 @@ function WritePost() {
             </section>
             <section className={s.hashtag}>
                 <h3>hashtags</h3>
-                <CheckboxSelect />
+                <CheckboxSelect
+                    options={hashtagOptions}
+                    chosenOptions={chosenHashtagOptions}
+                    setChosenOptions={setChosenHashtagOptions}
+                />
             </section>
             <Editor />
         </form>
