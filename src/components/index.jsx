@@ -18,3 +18,5 @@ export { default as Author } from './Author/Author';
 export { default as Heading } from './Heading/Heading';
 export { default as MobileNav } from './MobileNav/MobileNav';
 export { default as Comment } from './Comment/Comment';
+export { default as Editor } from './Editor/Editor';
+export { default as CheckboxSelect } from './CheckboxSelect/CheckboxSelect';
