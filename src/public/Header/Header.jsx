@@ -97,15 +97,15 @@ export default function Header() {
                 <div className={s.burger} onClick={toggleNav}>
                     <FaBars size={24} />
                 </div>
-                {/* <div className={s.loginRegis}>
-                    <Link to="/register" className={s.register}>
+                <div className={s.loginRegis}>
+                    <Link to="/signup" className={s.register}>
                         Đăng ký
                     </Link>
                     <Link to="/login" className={s.login}>
                         Đăng nhập
                     </Link>
-                </div> */}
-                <Account />
+                </div>
+                {/* <Account /> */}
             </div>
             <div className={`${s.mobieHeader} ${!toggle && s.hidden}`}>
                 <div className={s.overlay} onClick={toggleNav}></div>
