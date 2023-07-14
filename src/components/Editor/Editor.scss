@@ -1,18 +1,19 @@
 #editor {
-    padding: 1rem 0;
+  padding: 1rem 0;
 }
 .quill {
-    .ql-stroke,
-    .ql-stroke,
-    .ql-picker-label,
-    .ql-strike,
-    .ql-underline,
-    .ql-image,
-    .ql-clean {
-        stroke: var(--text);
-        color: var(--text);
-    }
-    .ql-editor {
-        min-height: 260px;
-    }
+  .ql-stroke,
+  .ql-stroke,
+  .ql-picker-label,
+  .ql-strike,
+  .ql-underline,
+  .ql-image,
+  .ql-clean {
+    stroke: var(--text);
+    color: var(--text);
+  }
+  .ql-editor {
+    min-height: 260px;
+    font-size: 1rem;
+  }
 }

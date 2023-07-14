@@ -1,87 +1,95 @@
-import { useRef, useState } from "react";
-import axios from "axios";
-import resizeImage from "../../utils/resizeImage";
-import React from "react";
+import { useRef, useState } from 'react';
+import axios from 'axios';
+import reduceImageFile from '../../utils/reduceImageFile';
+import createImageFilesFromSrc from '../../utils/createImageFileFromSrc';
+import React from 'react';
 import {
   Editor,
   TextFormInput,
   CheckboxSelect,
   PrimaryButton,
-} from "../../components";
-import s from "./CreatePost.module.scss";
-import base64ToFile from "../../utils/base64ToFile";
-import Preview from "./Preview";
+  SecondaryButton,
+  Overlay,
+  Loading,
+} from '../../components';
+import Preview from './Preview';
+import s from './CreatePost.module.scss';
 const _options = [
-  { id: "id1", value: "value1" },
-  { id: "id2", value: "value2" },
-  { id: "id3", value: "value3" },
+  { id: 'id1', value: 'value1' },
+  { id: 'id2', value: 'value2' },
+  { id: 'id3', value: 'value3' },
 ];
-function getAllImagesInEditorAndConvertToFiles(editor) {
-  const contentImages = editor.getElementsByTagName("img");
-  // console.log(contentImages);
-  return Array.from(contentImages).map((image, index) => {
-    const file = base64ToFile(image.src, `image${index}`);
-    console.log(URL.createObjectURL(file));
-    image.src = URL.createObjectURL(file);
-    console.log(image);
-    return file;
-  });
+function createImageFilesFromSrcs(srcs = ['']) {
+  return Promise.all(srcs.map((url, index) => createImageFilesFromSrc(url, `contentImage${index}`)));
 }
 function WritePost() {
   const [hashtagOptions, setHashtagOptions] = useState([..._options]);
   const [chosenHashtagOptions, setChosenHashtagOptions] = useState([]);
-  const [thumbnailFile, setThumbnailFile] = useState("");
-  const [content, setContent] = useState("");
-  const [isPreview, setIsPreview] = useState(false);
+  const [thumbnailFile, setThumbnailFile] = useState('');
+  const [content, setContent] = useState('');
+  const [isPreviewing, setIsPreviewing] = useState(false);
+  const [isUploadingImageFile, setIsUploadingImageFile] = useState(false);
   const thumbnailRef = useRef();
   const handleThumbnailImage = (e) => {
     const [file] = e.target.files;
     if (file) {
-      resizeImage(file, setThumbnailFile);
+      reduceImageFile(file, setThumbnailFile);
     } else {
-      setThumbnailFile("");
+      setThumbnailFile('');
     }
   };
-  // const handleSendThubnail = async () => {
-  //   const formData = new FormData();
-  //   formData.append("image", thumbnailFile);
-
-  //   try {
-  //     const response = await axios.post(
-  //       "http://localhost:3400/uploadtocloud",
-  //       formData,
-  //       {
-  //         headers: { "Content-Type": "multipart/form-data" },
-  //       }
-  //     );
-
-  //     console.log("Image uploaded successfully!", response.data.imageUrl);
-  //   } catch (error) {
-  //     console.error("Error uploading image:", error);
-  //   }
-  // };
-  const fake = React.createElement("div", null, "<h1>ABC</h1>");
-  const contentPreprocess = (content) => {
-    // const virtualEditor = document.createElement("div");
-    // virtualEditor.innerHTML = document.querySelector(".ql-editor").innerHTML;
-    const contentImages = getAllImagesInEditorAndConvertToFiles(
-      document.querySelector(".ql-editor")
-    );
-    setContent(document.querySelector(".ql-editor").innerHTML);
-    setIsPreview(true);
+  const handlePreview = () => {
+    setContent(document.querySelector('.ql-editor').innerHTML);
+    setIsPreviewing(true);
   };
-  const handlePreprocess = () => {};
-  // const handleSend = async () => {
-  //   try {
-  //     const response = await axios.post("http://localhost:3400/posts/create", {
-  //       content,
-  //     });
+  const handleSend = () => {
+    //tạo editor ảo
+    const editor = document.createElement('div');
+    editor.innerHTML = document.getElementsByClassName('ql-editor')[0].innerHTML;
+    //lấy ra các thẻ img trong editor ảo
+    const imgTags = editor.getElementsByTagName('img');
+    //lấy ra các src và đổi src của img
+    const imgSrcs = Array.from(imgTags).map((image, index) => {
+      const src = image.src;
+      image.setAttribute('src', `image${index}`);
+      return src;
+    });
+    //tạo các ảnh từ các src
+    createImageFilesFromSrcs(imgSrcs)
+      .then((files) => {
+        //tạo các promise gửi mỗi ảnh đến server
+        const uploadPromises = files.map(async (file, index) => {
+          const formData = new FormData();
+          formData.append('image', file);
+          try {
+            const response = await axios.post('http://localhost:3400/uploadtocloud', formData);
+            return { index, imageUrl: response.data.imageUrl };
+          } catch (err) {
+            console.error('Error uploading', err);
+            throw err;
+          }
+        });
+        //và xử lý chúng bất đồng bộ
+        console.log('requests:', uploadPromises);
+        return Promise.all(uploadPromises);
+      })
+      .then(async (responses) => {
+        responses.forEach(({ index, imageUrl }) => {
+          imgTags[index].setAttribute('src', imageUrl);
+        });
 
-  //     console.log("Uploaded successfully!");
-  //   } catch (error) {
-  //     console.error("Error uploading");
-  //   }
-  // };
+        const content = editor.innerHTML;
+        return axios.post('http://localhost:3400/posts/create', { content });
+      })
+      .then(async (response) => {
+        console.log(response.data.content);
+        setIsUploadingImageFile(false);
+      })
+      .catch((error) => {
+        alert('Server không phản hồi. Vui lòng thử lại sau');
+        setIsUploadingImageFile(false);
+      });
+  };
   return (
     <>
       <form className={s.createPost}>
@@ -93,14 +101,14 @@ function WritePost() {
           <h3>THUMBNAIL</h3>
 
           {thumbnailFile && (
-            <div className={s.preview}>
+            <div className={s.previewThumbnail}>
               <img src={URL.createObjectURL(thumbnailFile)} />
               <span
                 className={s.close}
                 title="Delete thumbnail"
                 onClick={() => {
-                  setThumbnailFile("");
-                  thumbnailRef.current.value = "";
+                  setThumbnailFile('');
+                  thumbnailRef.current.value = '';
                 }}
               >
                 x
@@ -128,13 +136,30 @@ function WritePost() {
         </section>
         <Editor />
       </form>
-      <PrimaryButton onClick={contentPreprocess}>
-        Send Thumbnail img to db
-      </PrimaryButton>
-      {isPreview && (
-        <div className={s.previewCtn}>
-          <Preview content={content} />
-        </div>
+      <div className={s.buttons}>
+        {/* <SecondaryButton onClick={handlePreview}>Preview</SecondaryButton> */}
+        <SecondaryButton onClick={handlePreview}>Preview</SecondaryButton>
+        <PrimaryButton
+          onClick={() => {
+            setIsUploadingImageFile(true);
+            handleSend();
+          }}
+        >
+          POST
+        </PrimaryButton>
+      </div>
+      {isUploadingImageFile && (
+        <Overlay>
+          <Loading>Uploading images...</Loading>
+        </Overlay>
+      )}
+      {isPreviewing && (
+        <Preview
+          content={content}
+          handleClose={() => {
+            setIsPreviewing(false);
+          }}
+        />
       )}
     </>
   );

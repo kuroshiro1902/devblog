@@ -1,0 +1,19 @@
+.loading {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  min-width: 360px;
+  p {
+    text-align: center;
+    background-color: #fff;
+    padding: 1rem;
+    margin-top: -1px;
+    color: var(--skyblue);
+    font-weight: bold;
+    font-size: 18px;
+  }
+}
+.loadingImg {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background-position: center;
+}
