@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import reduceImageFile from '../../utils/images/reduceImageFile';
 import createImageFilesFromSrc from '../../utils/images/createImageFileFromSrc';
@@ -14,23 +14,27 @@ import {
 } from '../../components';
 import Preview from './Preview';
 import s from './CreatePost.module.scss';
-const _options = [
-  { id: 'id1', value: 'value1' },
-  { id: 'id2', value: 'value2' },
-  { id: 'id3', value: 'value3' },
-];
+import getCategories from '../../alternates/getCategories';
+
 function createImageFilesFromSrcs(srcs = ['']) {
   return Promise.all(srcs.map((url, index) => createImageFilesFromSrc(url, `contentImage${index}`)));
 }
 let editorDOM;
 function WritePost() {
-  const [hashtagOptions, setHashtagOptions] = useState([..._options]);
+  const [categories, setCategories] = useState([]);
+  const [hashtagOptions, setHashtagOptions] = useState([]);
   const [chosenHashtagOptions, setChosenHashtagOptions] = useState([]);
+  console.log(chosenHashtagOptions);
   const [thumbnailFile, setThumbnailFile] = useState('');
   const [content, setContent] = useState('');
   const [isPreviewing, setIsPreviewing] = useState(false);
   const [isUploadingImageFile, setIsUploadingImageFile] = useState(false);
   const thumbnailRef = useRef();
+  //temp
+  useEffect(() => {
+    getCategories().then((data) => setCategories(data));
+  }, []);
+  //
   useEffect(() => {
     editorDOM = document.getElementsByClassName('ql-editor')[0];
   }, []);
@@ -46,7 +50,7 @@ function WritePost() {
     setContent(editorDOM.innerHTML);
     setIsPreviewing(true);
   };
-  const handleSend = () => {
+  const handleSend = useCallback(() => {
     //tạo editor ảo
     const editor = document.createElement('div');
     editor.innerHTML = editorDOM.innerHTML;
@@ -93,7 +97,7 @@ function WritePost() {
         alert('Server không phản hồi. Vui lòng thử lại sau');
         setIsUploadingImageFile(false);
       });
-  };
+  }, []);
   return (
     <>
       {/* <CreatePostContext.Provider /> */}
@@ -133,11 +137,7 @@ function WritePost() {
         </section>
         <section className={s.hashtag}>
           <h3>hashtags</h3>
-          <CheckboxSelect
-            options={hashtagOptions}
-            chosenOptions={chosenHashtagOptions}
-            setChosenOptions={setChosenHashtagOptions}
-          />
+          <CheckboxSelect optionDatas={categories} handleSelectedOptions={setChosenHashtagOptions} />
         </section>
         <Editor />
       </form>
