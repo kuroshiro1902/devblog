@@ -1,79 +1,82 @@
 :root {
-    --dark1: #222f43;
-    --dark2: #131c31;
-    --dark3: #0f172a;
-    --white: #94a9c9;
-    --gray: #66768f;
-    --cyan: #0bd1d1;
-    --skyblue: #0ea5ea;
-    transition: color 0.5s, background-color 0.5s;
+  --dark1: #222f43;
+  --dark2: #131c31;
+  --dark3: #0f172a;
+  --white: #94a9c9;
+  --gray: #66768f;
+  --cyan: #0bd1d1;
+  --skyblue: #0ea5ea;
+  transition: color 0.5s, background-color 0.5s;
 }
 .splide__track {
-    width: 100% !important;
-    height: 100% !important;
+  width: 100% !important;
+  height: 100% !important;
 }
 #dark,
 #light {
-    width: 100%;
-    margin: auto;
+  width: 100%;
+  margin: auto;
 }
 #dark {
-    background-color: var(--dark3);
-    color: var(--text);
-    /*  */
-    --text: var(--white);
-    --bg: var(--dark3);
-    --card-bg: var(--dark2);
-    --border: rgba(255, 255, 255, 0.15);
+  background-color: var(--dark3);
+  color: var(--text);
+  /*  */
+  --text: var(--white);
+  --bg: var(--dark3);
+  --card-bg: var(--dark2);
+  --border: rgba(255, 255, 255, 0.15);
 }
 #light {
-    background-color: #fff;
-    color: var(--text);
-    /*  */
-    --text: #2e548c;
-    --bg: #fff;
-    --card-bg: #e8edf5;
-    --border: rgba(0, 0, 0, 0.15);
+  background-color: #fff;
+  color: var(--text);
+  /*  */
+  --text: #2e548c;
+  --bg: #fff;
+  --card-bg: #e8edf5;
+  --border: rgba(0, 0, 0, 0.15);
 }
 #container {
-    max-width: 1400px;
-    margin: auto;
-    padding: 4rem 8rem;
+  max-width: 1400px;
+  margin: auto;
+  padding: 4rem 8rem;
 }
 @media screen and (max-width: 1100px) {
-    #container {
-        padding: 2rem 3rem;
-    }
+  #container {
+    padding: 2rem 3rem;
+  }
 }
 @media screen and (max-width: 920px) {
-    #container {
-        padding: 1.5rem 2rem;
-    }
+  #container {
+    padding: 1.5rem 2rem;
+  }
 }
 @media screen and (max-width: 680px) {
-    #container {
-        padding: 0;
-    }
+  #container {
+    padding: 0;
+  }
 }
 a {
-    text-decoration: none;
-    color: inherit;
-    transition: color 0.2s;
-    cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s;
+  cursor: pointer;
 }
+/* p {
+    word-break: break-all;
+} */
 a:hover {
-    color: var(--skyblue);
+  color: var(--skyblue);
 }
 .rounded {
-    border-radius: 2rem !important;
+  border-radius: 2rem !important;
 }
 .subtext {
-    font-size: 14px;
-    opacity: 0.75;
+  font-size: 14px;
+  opacity: 0.75;
 }
 .move-up {
-    transition: transform 0.5s, box-shadow 0.25s;
+  transition: transform 0.5s, box-shadow 0.25s;
 }
 .move-up:hover {
-    transform: translateY(-4px);
+  transform: translateY(-4px);
 }
