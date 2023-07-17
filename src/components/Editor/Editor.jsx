@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
-import reduceImageFromBase64 from '../../utils/reduceImageFromBase64';
+import reduceImageFromBase64 from '../../utils/images/reduceImageFromBase64';
 import 'react-quill/dist/quill.snow.css';
 import './Editor.scss';
 
+let editor;
 function reduceImageSize(editor) {
   const images = editor.querySelectorAll('img');
   images.forEach((img, index) => {
@@ -20,7 +21,9 @@ const Editor = () => {
     setContent(value);
   };
   useEffect(() => {
-    const editor = document.querySelector('.ql-editor');
+    editor = document.getElementsByClassName('ql-editor')[0];
+  }, []);
+  useEffect(() => {
     reduceImageSize(editor);
   }, [content]);
 

@@ -10,7 +10,7 @@ export default function reduceImageFromBase64(base64 = '', filename = 'image') {
   img.setAttribute('src', base64);
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
-  const MAX_WIDTH = 800; // Kích thước tối đa
+  const MAX_WIDTH = 900; // Kích thước tối đa
   const MAX_HEIGHT = 600;
   let width = img.width;
   let height = img.height;

@@ -1,7 +1,7 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import reduceImageFile from '../../utils/reduceImageFile';
-import createImageFilesFromSrc from '../../utils/createImageFileFromSrc';
+import reduceImageFile from '../../utils/images/reduceImageFile';
+import createImageFilesFromSrc from '../../utils/images/createImageFileFromSrc';
 import React from 'react';
 import {
   Editor,
@@ -22,6 +22,7 @@ const _options = [
 function createImageFilesFromSrcs(srcs = ['']) {
   return Promise.all(srcs.map((url, index) => createImageFilesFromSrc(url, `contentImage${index}`)));
 }
+let editorDOM;
 function WritePost() {
   const [hashtagOptions, setHashtagOptions] = useState([..._options]);
   const [chosenHashtagOptions, setChosenHashtagOptions] = useState([]);
@@ -30,6 +31,9 @@ function WritePost() {
   const [isPreviewing, setIsPreviewing] = useState(false);
   const [isUploadingImageFile, setIsUploadingImageFile] = useState(false);
   const thumbnailRef = useRef();
+  useEffect(() => {
+    editorDOM = document.getElementsByClassName('ql-editor')[0];
+  }, []);
   const handleThumbnailImage = (e) => {
     const [file] = e.target.files;
     if (file) {
@@ -39,13 +43,13 @@ function WritePost() {
     }
   };
   const handlePreview = () => {
-    setContent(document.querySelector('.ql-editor').innerHTML);
+    setContent(editorDOM.innerHTML);
     setIsPreviewing(true);
   };
   const handleSend = () => {
     //tạo editor ảo
     const editor = document.createElement('div');
-    editor.innerHTML = document.getElementsByClassName('ql-editor')[0].innerHTML;
+    editor.innerHTML = editorDOM.innerHTML;
     //lấy ra các thẻ img trong editor ảo
     const imgTags = editor.getElementsByTagName('img');
     //lấy ra các src và đổi src của img
@@ -92,6 +96,7 @@ function WritePost() {
   };
   return (
     <>
+      {/* <CreatePostContext.Provider /> */}
       <form className={s.createPost}>
         <section className={s.title}>
           <h3>TITLE</h3>
