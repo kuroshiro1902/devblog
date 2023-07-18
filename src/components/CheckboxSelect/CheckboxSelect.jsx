@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import s from './CheckboxSelect.module.scss';
 import findObjectsByKeyword from '../../utils/find/FindObjectsByKeyword';
 const setHide = (ref) => {
@@ -12,6 +12,7 @@ function CheckboxSelect({ optionDatas = [], handleSelectedOptions = () => {} }) 
   const [options, setOptions] = useState([]);
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [displayOptions, setDisplayOptions] = useState([]);
+  console.log('rerender');
   useEffect(() => {
     const _options = optionDatas.map((optionData) => {
       return { ...optionData, selected: false };
@@ -102,4 +103,4 @@ function CheckboxSelect({ optionDatas = [], handleSelectedOptions = () => {} }) 
   );
 }
 
-export default CheckboxSelect;
+export default memo(CheckboxSelect);

@@ -23,8 +23,11 @@ function WritePost() {
   //
   const [title, setTitle] = useState('');
   const [thumbnailFile, setThumbnailFile] = useState(''); //type: File
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const [selectedHashtags, setSelectedHashtags] = useState([]);
+  const [selectedCategories, _setSelectedCategories] = useState([]);
+  const [selectedHashtags, _setSelectedHashtags] = useState([]);
+  //memoized cb
+  const setSelectedCategories = useCallback(_setSelectedCategories, []);
+  const setSelectedHashtags = useCallback(_setSelectedHashtags, []);
   //
   const [isPreviewing, setIsPreviewing] = useState(false);
   const [isUploadingImageFile, setIsUploadingImageFile] = useState(false);
@@ -45,17 +48,11 @@ function WritePost() {
       setThumbnailFile('');
     }
   }, []);
-  const handleSend = () => {
-    //tạo data gửi đi
-    let data = {
-      title,
-      thumbnailUrl: '',
-      content: '',
-    };
+  const handleSend = useCallback((data) => {
     setIsUploadingImageFile(true);
     //tạo editor ảo
     const editor = document.createElement('div');
-    editor.innerHTML = editorDOM.innerHTML;
+    editor.innerHTML = data.content;
     //lấy ra các thẻ img trong editor ảo
     const imgTags = editor.getElementsByTagName('img');
     //lấy ra các src và đổi src của img
@@ -68,7 +65,7 @@ function WritePost() {
     createImageFilesFromSrcs(imgSrcs)
       .then((files) => {
         //Thêm file thumbnail vào CUỐI
-        files.push(thumbnailFile);
+        files.push(data.thumbnailFile);
         //tạo các promise gửi mỗi ảnh đến server
         const uploadPromises = sendFileToUrl(files, 'http://localhost:3400/uploadtocloud');
         //và xử lý chúng bất đồng bộ
@@ -97,7 +94,7 @@ function WritePost() {
         alert('Server không phản hồi. Vui lòng thử lại sau');
         setIsUploadingImageFile(false);
       });
-  };
+  }, []);
   return (
     <>
       {/* <CreatePostContext.Provider /> */}
@@ -155,7 +152,19 @@ function WritePost() {
         >
           Preview
         </SecondaryButton>
-        <PrimaryButton onClick={handleSend}>POST</PrimaryButton>
+        <PrimaryButton
+          onClick={() => {
+            //tạo data gửi đi
+            let data = {
+              title,
+              thumbnailFile,
+              content: editorDOM.innerHTML,
+            };
+            handleSend(data);
+          }}
+        >
+          POST
+        </PrimaryButton>
       </div>
       {isUploadingImageFile && (
         <Overlay>
