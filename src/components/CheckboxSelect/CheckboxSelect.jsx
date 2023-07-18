@@ -13,11 +13,11 @@ function CheckboxSelect({ optionDatas = [], handleSelectedOptions = () => {} }) 
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [displayOptions, setDisplayOptions] = useState([]);
   useEffect(() => {
-    setOptions(
-      optionDatas.map((optionData) => {
-        return { ...optionData, selected: false };
-      }),
-    );
+    const _options = optionDatas.map((optionData) => {
+      return { ...optionData, selected: false };
+    });
+    setOptions(_options);
+    setDisplayOptions(_options);
   }, [optionDatas]);
   const dropdownRef = useRef();
   useEffect(() => {
@@ -31,7 +31,7 @@ function CheckboxSelect({ optionDatas = [], handleSelectedOptions = () => {} }) 
   };
   const handleSearch = (e) => {
     const value = e.target.value;
-    console.log(value);
+    setDisplayOptions(findObjectsByKeyword(options, value));
   };
   const handleSelected = (e) => {
     const value = e.target.value;
@@ -77,14 +77,25 @@ function CheckboxSelect({ optionDatas = [], handleSelectedOptions = () => {} }) 
       >
         <input className={s.search} spellCheck={false} placeholder="Search" onChange={handleSearch} />
         <ul className={s.optionlist}>
-          {options?.map((option, index) => {
-            return (
-              <li key={index}>
-                <input id={`option${index}`} type="checkbox" onClick={handleSelected} value={option._id} />
-                <label htmlFor={`option${index}`}>{option.name}</label>
-              </li>
-            );
-          })}
+          {displayOptions.length > 0
+            ? displayOptions.map((option, index) => {
+                return (
+                  <li key={index}>
+                    <input
+                      id={`option${index}`}
+                      type="checkbox"
+                      onClick={handleSelected}
+                      value={option._id}
+                      checked={option.selected}
+                      onChange={(e) => {
+                        e.target.checked = option.selected;
+                      }}
+                    />
+                    <label htmlFor={`option${index}`}>{option.name}</label>
+                  </li>
+                );
+              })
+            : 'No option.'}
         </ul>
       </div>
     </div>
