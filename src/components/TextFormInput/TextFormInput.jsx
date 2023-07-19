@@ -5,6 +5,7 @@ function TextFormInput({
   icon,
   type = 'text',
   name,
+  required = true,
   className,
   style,
   onChange = () => {},
@@ -12,7 +13,7 @@ function TextFormInput({
   return (
     <div className={clsx(s.inputCtn, className)} style={style}>
       {icon}
-      <input onChange={onChange} placeholder={placeholder} type={type} name={name} required />
+      <input onChange={onChange} placeholder={placeholder} type={type} name={name} required={required} />
     </div>
   );
 }

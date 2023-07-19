@@ -1,8 +1,7 @@
-import { useCallback, useEffect, useReducer, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import reduceImageFile from '../../utils/images/reduceImageFile';
-import sendFileToUrl from '../../utils/sendFile/sendFileToUrl';
-import React from 'react';
+import host from '../../host.config';
 import {
   Editor,
   TextFormInput,
@@ -14,7 +13,7 @@ import {
 } from '../../components';
 import Preview from './Preview';
 import s from './CreatePost.module.scss';
-import { createImageFilesFromSrcs } from './prepocessors';
+import { createImageFilesFromSrcs, sendAllFilesToUrl, dataValidation } from './prepocessors';
 import getCategories from '../../alternates/getCategories';
 
 let editorDOM;
@@ -49,6 +48,12 @@ function WritePost() {
     }
   }, []);
   const handleSend = useCallback((data) => {
+    const { valid, message } = dataValidation(data);
+    if (!valid) {
+      alert(message);
+      return;
+    }
+    //
     setIsUploadingImageFile(true);
     //tạo editor ảo
     const editor = document.createElement('div');
@@ -66,10 +71,8 @@ function WritePost() {
       .then((files) => {
         //Thêm file thumbnail vào CUỐI
         files.push(data.thumbnailFile);
-        //tạo các promise gửi mỗi ảnh đến server
-        const uploadPromises = sendFileToUrl(files, 'http://localhost:3400/uploadtocloud');
-        //và xử lý chúng bất đồng bộ
-        return Promise.all(uploadPromises);
+        //gửi files
+        return sendAllFilesToUrl(files, host + '/uploadtocloud');
       })
       .then(async (responses) => {
         //Lấy ra response cuối cùng (là res của thumbnail)
@@ -84,7 +87,7 @@ function WritePost() {
         data.content = editor.innerHTML;
 
         console.log('send: ', data);
-        return axios.post('http://localhost:3400/posts/create', data);
+        return axios.post(host + '/posts/create', data);
       })
       .then(async (response) => {
         console.log('res: ', response.data);
@@ -92,6 +95,7 @@ function WritePost() {
       })
       .catch((error) => {
         alert('Server không phản hồi. Vui lòng thử lại sau');
+        console.error(error);
         setIsUploadingImageFile(false);
       });
   }, []);
@@ -103,6 +107,8 @@ function WritePost() {
           <h3>TITLE</h3>
           <TextFormInput
             placeholder="Title"
+            name={'title'}
+            required
             onChange={(e) => {
               setTitle(e.target.value);
             }}
@@ -130,55 +136,57 @@ function WritePost() {
             ref={thumbnailRef}
             className={s.imgFile}
             onChange={handleThumbnailImage}
+            name="thumbnail"
+            required
             type="file"
             accept="image/png, image/gif, image/jpeg, image/webp, image/jpg"
           />
         </section>
         <section className={s.category}>
           <h3>Categories</h3>
-          <CheckboxSelect optionDatas={categories} handleSelectedOptions={setSelectedCategories} />
+          <CheckboxSelect optionDatas={categories} handleSelectedOptions={setSelectedCategories} name={'categories'} />
         </section>
         <section className={s.hashtag}>
           <h3>hashtags</h3>
         </section>
         <Editor />
+        <div className={s.buttons}>
+          <SecondaryButton
+            onClick={() => {
+              setIsPreviewing(true);
+            }}
+          >
+            Preview
+          </SecondaryButton>
+          <PrimaryButton
+            onClick={(e) => {
+              e.preventDefault();
+              //tạo data gửi đi
+              let data = {
+                title: title.trim(),
+                thumbnailFile,
+                content: editorDOM.innerHTML,
+              };
+              handleSend(data);
+            }}
+          >
+            POST
+          </PrimaryButton>
+        </div>
+        {isUploadingImageFile && (
+          <Overlay>
+            <Loading>Uploading images...</Loading>
+          </Overlay>
+        )}
+        {isPreviewing && (
+          <Preview
+            content={editorDOM.innerHTML}
+            handleClose={() => {
+              setIsPreviewing(false);
+            }}
+          />
+        )}
       </form>
-      <div className={s.buttons}>
-        {/* <SecondaryButton onClick={handlePreview}>Preview</SecondaryButton> */}
-        <SecondaryButton
-          onClick={() => {
-            setIsPreviewing(true);
-          }}
-        >
-          Preview
-        </SecondaryButton>
-        <PrimaryButton
-          onClick={() => {
-            //tạo data gửi đi
-            let data = {
-              title,
-              thumbnailFile,
-              content: editorDOM.innerHTML,
-            };
-            handleSend(data);
-          }}
-        >
-          POST
-        </PrimaryButton>
-      </div>
-      {isUploadingImageFile && (
-        <Overlay>
-          <Loading>Uploading images...</Loading>
-        </Overlay>
-      )}
-      {isPreviewing && (
-        <Preview
-          content={editorDOM.innerHTML}
-          handleClose={() => {
-            setIsPreviewing(false);
-          }}
-        />
-      )}
     </>
   );
 }

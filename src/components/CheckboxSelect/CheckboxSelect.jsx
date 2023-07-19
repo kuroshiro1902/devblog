@@ -8,11 +8,10 @@ const setShow = (ref) => {
   ref.current.classList.add(s.show);
 };
 const getSelectedOptions = (options) => {};
-function CheckboxSelect({ optionDatas = [], handleSelectedOptions = () => {} }) {
+function CheckboxSelect({ optionDatas = [], handleSelectedOptions = () => {}, name, required = false }) {
   const [options, setOptions] = useState([]);
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [displayOptions, setDisplayOptions] = useState([]);
-  console.log('rerender');
   useEffect(() => {
     const _options = optionDatas.map((optionData) => {
       return { ...optionData, selected: false };
@@ -22,8 +21,16 @@ function CheckboxSelect({ optionDatas = [], handleSelectedOptions = () => {} }) 
   }, [optionDatas]);
   const dropdownRef = useRef();
   useEffect(() => {
-    document.body.onclick = () => {
-      setHide(dropdownRef);
+    const handleClickOutside = (event) => {
+      if (!dropdownRef.current.contains(event.target)) {
+        setHide(dropdownRef);
+      }
+    };
+
+    document.body.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.body.removeEventListener('click', handleClickOutside);
     };
   }, []);
   const handleFocus = (e) => {
@@ -86,6 +93,8 @@ function CheckboxSelect({ optionDatas = [], handleSelectedOptions = () => {} }) 
                       id={`option${index}`}
                       type="checkbox"
                       onClick={handleSelected}
+                      name={name}
+                      required={required}
                       value={option._id}
                       checked={option.selected}
                       onChange={(e) => {

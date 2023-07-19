@@ -9,7 +9,7 @@
 export default function filterObjectsByKeyword(arr = [], keyword = '', prop = 'name') {
   return arr.filter((obj) => {
     const propertyValue = obj[prop].toLowerCase();
-    if (propertyValue.includes(keyword)) {
+    if (propertyValue.includes(keyword.trim())) {
       return true;
     }
     return false;
