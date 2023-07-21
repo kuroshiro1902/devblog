@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import reduceImageFile from '../../utils/images/reduceImageFile';
-import createImageFilesFromSrc from '../../utils/images/createImageFileFromSrc';
-import React from 'react';
+import host from '../../host.config';
 import {
   Editor,
   TextFormInput,
@@ -14,42 +13,51 @@ import {
 } from '../../components';
 import Preview from './Preview';
 import s from './CreatePost.module.scss';
-const _options = [
-  { id: 'id1', value: 'value1' },
-  { id: 'id2', value: 'value2' },
-  { id: 'id3', value: 'value3' },
-];
-function createImageFilesFromSrcs(srcs = ['']) {
-  return Promise.all(srcs.map((url, index) => createImageFilesFromSrc(url, `contentImage${index}`)));
-}
+import { createImageFilesFromSrcs, sendAllFilesToUrl, dataValidation } from './prepocessors';
+import getCategories from '../../alternates/getCategories';
+
 let editorDOM;
 function WritePost() {
-  const [hashtagOptions, setHashtagOptions] = useState([..._options]);
-  const [chosenHashtagOptions, setChosenHashtagOptions] = useState([]);
-  const [thumbnailFile, setThumbnailFile] = useState('');
-  const [content, setContent] = useState('');
+  const [categories, setCategories] = useState([]);
+  //
+  const [title, setTitle] = useState('');
+  const [thumbnailFile, setThumbnailFile] = useState(''); //type: File
+  const [selectedCategories, _setSelectedCategories] = useState([]);
+  const [selectedHashtags, _setSelectedHashtags] = useState([]);
+  //memoized cb
+  const setSelectedCategories = useCallback(_setSelectedCategories, []);
+  const setSelectedHashtags = useCallback(_setSelectedHashtags, []);
+  //
   const [isPreviewing, setIsPreviewing] = useState(false);
   const [isUploadingImageFile, setIsUploadingImageFile] = useState(false);
   const thumbnailRef = useRef();
+  //temp
+  useEffect(() => {
+    getCategories().then((data) => setCategories(data));
+  }, []);
+  //
   useEffect(() => {
     editorDOM = document.getElementsByClassName('ql-editor')[0];
   }, []);
-  const handleThumbnailImage = (e) => {
+  const handleThumbnailImage = useCallback((e) => {
     const [file] = e.target.files;
     if (file) {
       reduceImageFile(file, setThumbnailFile);
     } else {
       setThumbnailFile('');
     }
-  };
-  const handlePreview = () => {
-    setContent(editorDOM.innerHTML);
-    setIsPreviewing(true);
-  };
-  const handleSend = () => {
+  }, []);
+  const handleSend = useCallback((data) => {
+    const { valid, message } = dataValidation(data);
+    if (!valid) {
+      alert(message);
+      return;
+    }
+    //
+    setIsUploadingImageFile(true);
     //tạo editor ảo
     const editor = document.createElement('div');
-    editor.innerHTML = editorDOM.innerHTML;
+    editor.innerHTML = data.content;
     //lấy ra các thẻ img trong editor ảo
     const imgTags = editor.getElementsByTagName('img');
     //lấy ra các src và đổi src của img
@@ -58,49 +66,53 @@ function WritePost() {
       image.setAttribute('src', `image${index}`);
       return src;
     });
-    //tạo các ảnh từ các src
+    //tạo các ảnh từ các src trong content
     createImageFilesFromSrcs(imgSrcs)
       .then((files) => {
-        //tạo các promise gửi mỗi ảnh đến server
-        const uploadPromises = files.map(async (file, index) => {
-          const formData = new FormData();
-          formData.append('image', file);
-          try {
-            const response = await axios.post('http://localhost:3400/uploadtocloud', formData);
-            return { index, imageUrl: response.data.imageUrl };
-          } catch (err) {
-            console.error('Error uploading', err);
-            throw err;
-          }
-        });
-        //và xử lý chúng bất đồng bộ
-        console.log('requests:', uploadPromises);
-        return Promise.all(uploadPromises);
+        //Thêm file thumbnail vào CUỐI
+        files.push(data.thumbnailFile);
+        //gửi files
+        return sendAllFilesToUrl(files, host + '/uploadtocloud');
       })
       .then(async (responses) => {
+        //Lấy ra response cuối cùng (là res của thumbnail)
+        const { imageUrl: thumbnailUrl } = responses.pop();
+        //Xét lại url của các thẻ img
         responses.forEach(({ index, imageUrl }) => {
           imgTags[index].setAttribute('src', imageUrl);
         });
+        //Xét lại thumbnail của data
+        data.thumbnailUrl = thumbnailUrl;
+        //Xét lại content của data
+        data.content = editor.innerHTML;
 
-        const content = editor.innerHTML;
-        return axios.post('http://localhost:3400/posts/create', { content });
+        console.log('send: ', data);
+        return axios.post(host + '/posts/create', data);
       })
       .then(async (response) => {
-        console.log(response.data.content);
+        console.log('res: ', response.data);
         setIsUploadingImageFile(false);
       })
       .catch((error) => {
         alert('Server không phản hồi. Vui lòng thử lại sau');
+        console.error(error);
         setIsUploadingImageFile(false);
       });
-  };
+  }, []);
   return (
     <>
       {/* <CreatePostContext.Provider /> */}
       <form className={s.createPost}>
         <section className={s.title}>
           <h3>TITLE</h3>
-          <TextFormInput placeholder="Title" />
+          <TextFormInput
+            placeholder="Title"
+            name={'title'}
+            required
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+          />
         </section>
         <section className={s.thumbnail}>
           <h3>THUMBNAIL</h3>
@@ -124,48 +136,57 @@ function WritePost() {
             ref={thumbnailRef}
             className={s.imgFile}
             onChange={handleThumbnailImage}
+            name="thumbnail"
+            required
             type="file"
-            accept="image/png, image/gif, image/jpeg, image/webp"
+            accept="image/png, image/gif, image/jpeg, image/webp, image/jpg"
           />
         </section>
         <section className={s.category}>
           <h3>Categories</h3>
+          <CheckboxSelect optionDatas={categories} handleSelectedOptions={setSelectedCategories} name={'categories'} />
         </section>
         <section className={s.hashtag}>
           <h3>hashtags</h3>
-          <CheckboxSelect
-            options={hashtagOptions}
-            chosenOptions={chosenHashtagOptions}
-            setChosenOptions={setChosenHashtagOptions}
-          />
         </section>
         <Editor />
+        <div className={s.buttons}>
+          <SecondaryButton
+            onClick={() => {
+              setIsPreviewing(true);
+            }}
+          >
+            Preview
+          </SecondaryButton>
+          <PrimaryButton
+            onClick={(e) => {
+              e.preventDefault();
+              //tạo data gửi đi
+              let data = {
+                title: title.trim(),
+                thumbnailFile,
+                content: editorDOM.innerHTML,
+              };
+              handleSend(data);
+            }}
+          >
+            POST
+          </PrimaryButton>
+        </div>
+        {isUploadingImageFile && (
+          <Overlay>
+            <Loading>Uploading images...</Loading>
+          </Overlay>
+        )}
+        {isPreviewing && (
+          <Preview
+            content={editorDOM.innerHTML}
+            handleClose={() => {
+              setIsPreviewing(false);
+            }}
+          />
+        )}
       </form>
-      <div className={s.buttons}>
-        {/* <SecondaryButton onClick={handlePreview}>Preview</SecondaryButton> */}
-        <SecondaryButton onClick={handlePreview}>Preview</SecondaryButton>
-        <PrimaryButton
-          onClick={() => {
-            setIsUploadingImageFile(true);
-            handleSend();
-          }}
-        >
-          POST
-        </PrimaryButton>
-      </div>
-      {isUploadingImageFile && (
-        <Overlay>
-          <Loading>Uploading images...</Loading>
-        </Overlay>
-      )}
-      {isPreviewing && (
-        <Preview
-          content={content}
-          handleClose={() => {
-            setIsPreviewing(false);
-          }}
-        />
-      )}
     </>
   );
 }

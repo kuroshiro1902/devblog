@@ -1,21 +1,18 @@
-import React, { useEffect, useState } from "react";
-import st from "./DarkModeBtn.module.scss";
-
+import React, { useEffect, useState } from 'react';
+import st from './DarkModeBtn.module.scss';
+const modeElement = document.querySelector('.mode');
 export default function DarkModeBtn() {
   // console.log(''===true);
-  const [isDarkMode, setIsDarkMode] = useState(
-    localStorage.getItem("mode") === "light" ? false : true
-  );
+  const [isDarkMode, setIsDarkMode] = useState(localStorage.getItem('mode') === 'light' ? false : true);
   useEffect(() => {
-    const modeElement = document.querySelector(".mode");
     if (modeElement) {
-      modeElement.id = isDarkMode ? "dark" : "light";
-      localStorage.setItem("mode", modeElement.id);
+      modeElement.id = isDarkMode ? 'dark' : 'light';
+      localStorage.setItem('mode', modeElement.id);
     }
   }, [isDarkMode]);
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
-    localStorage.setItem("mode", !isDarkMode);
+    localStorage.setItem('mode', !isDarkMode);
   };
   return (
     <label htmlFor="toggleInput" className={st.toggle}>

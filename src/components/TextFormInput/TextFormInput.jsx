@@ -5,10 +5,12 @@ function TextFormInput({
   icon,
   type = 'text',
   name,
+
+  required = true,
   className,
-  style,
   value,
-  setValue,
+  style,
+  onChange = () => {},
 }) {
   return (
     <div className={clsx(s.inputCtn, className)} style={style}>
@@ -17,10 +19,11 @@ function TextFormInput({
         placeholder={placeholder}
         type={type}
         name={name}
-        required
+        required = {required}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => onChange(e.target.value)}
       />
+
     </div>
   );
 }
