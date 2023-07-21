@@ -38,11 +38,12 @@
   padding: 1.25rem 0.75rem;
   background-color: var(--card-bg);
   border-radius: 0.75rem;
-  // padding: 1.25rem 0;
+  max-height: 768px;
+  overflow-y: auto;
 }
 .relatedPosts > div {
   position: sticky;
-  top: 1rem;
+  top: 76px;
 }
 @media screen and (max-width: 680px) {
   .heading {
