@@ -19,4 +19,7 @@ export { default as Heading } from './Heading/Heading';
 export { default as MobileNav } from './MobileNav/MobileNav';
 export { default as Comment } from './Comment/Comment';
 export { default as Editor } from './Editor/Editor';
+export { default as Loading } from './Loading/Loading';
+export { default as Overlay } from './Overlay/Overlay';
 export { default as CheckboxSelect } from './CheckboxSelect/CheckboxSelect';
+export { default as Category } from './Category/Category';
