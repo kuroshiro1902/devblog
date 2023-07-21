@@ -1,18 +1,27 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-body{
-    min-width: 320px;
-    min-height: 100vh;
+body {
+  min-width: 320px;
+  min-height: 100vh;
 }
-.flex{
-    display: flex;
+.flex {
+  display: flex;
 }
-.flexCol{
-    flex-direction: column;
+.flexCol {
+  flex-direction: column;
 }
-.textJustify{
-    text-align: justify;
+.textJustify {
+  text-align: justify;
+}
+.content {
+  & > * {
+    margin-bottom: 0.5rem;
+  }
+  & > img {
+    display: block;
+    width: 100%;
+  }
 }

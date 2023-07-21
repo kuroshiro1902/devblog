@@ -1,0 +1,14 @@
+.author {
+  display: flex;
+  gap: 0.6rem;
+  img {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+}
+.img {
+  display: flex;
+  align-items: center;
+}

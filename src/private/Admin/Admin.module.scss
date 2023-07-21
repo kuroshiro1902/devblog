@@ -1,0 +1,46 @@
+.admin {
+}
+
+.banner {
+  width: 100%;
+  padding: 0 4rem;
+  //   background: url(https://fullstack.edu.vn/static/media/cover-profile.3fb9fed576da4b28386a.png);
+  position: relative;
+}
+
+.banner .image {
+  width: 100%;
+  border-radius: 0.8rem;
+  object-fit: contain;
+  object-position: center;
+}
+
+.avatar {
+  bottom: -30%;
+  left: 6rem;
+  width: 10rem;
+  height: 10rem;
+  padding: 0.4rem;
+  background-color: var(--bg);
+  position: absolute;
+  border-radius: 50%;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+}
+
+.contentLeft {
+  width: 40%;
+}
+
+.contentRight {
+  width: 60%;
+}
