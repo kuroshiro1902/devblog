@@ -22,17 +22,7 @@ asperiores explicabo voluptatum ea nam animi, as 10 tempora et commodi a magnam 
 quo amet impedit! Animi, aperiam.
 </p>`;
 import { findCommentById } from '../../alternates/comments';
-const commentIds = [
-  '64b8df052320b7312a9ffb75',
-  '64b8dfa02320b7312a9ffb7x',
-  '64b8dfa02320b7312a9ffb7x',
-  '64b8dfa02320b7312a6ffb76',
-  '64b8dfa02320b7312a6ffb76',
-  '64b8dfa02320b7312a6ffb76',
-  '64b8dfa02320b7312a6ffb76',
-  '64b8dfa02320b7312a6ffb76',
-  '64b8dfa02320b7312a6ffb76',
-];
+const commentIds = ['1'];
 function PostDetail({ content = _content }) {
   const contentRef = useRef();
   const { slug } = useParams();

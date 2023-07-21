@@ -1,11 +1,11 @@
 import { Routes as ReactRoutes, Route } from 'react-router-dom';
-import { Home, Posts, PostDetail, Login, Signup, Admin } from '../public';
+import { Home, Posts, PostDetail, Login, Signup } from '../public';
+import { Admin, AddCategory } from '../private';
 import { CreatePost } from '../private';
-import { Category } from '../components';
 function Routes() {
   return (
     <ReactRoutes>
-      <Route path="/admin/category" element={<Category />} />
+      <Route path="/admin/category" element={<AddCategory />} />
       <Route path="/posts/create" element={<CreatePost />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />

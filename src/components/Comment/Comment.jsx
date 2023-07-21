@@ -12,7 +12,7 @@ function Comment({ data }) {
         </div>
         <div className={s.content}>{data.content}</div>
       </div>
-      <ul className={clsx(s.replies, s.line)}>
+      <ul className={clsx(s.replies, { [s.line]: hasReplies })}>
         {data.replyIds.map((replyId, index) => {
           const replyComment = findCommentById(replyId);
           if (replyComment)

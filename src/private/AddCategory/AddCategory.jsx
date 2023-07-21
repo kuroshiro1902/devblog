@@ -1,13 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import TextFormInput from '../TextFormInput/TextFormInput';
-import PrimaryButton from '../PrimaryButton/PrimaryButton';
-
+import { Overlay, TextFormInput, PrimaryButton } from '../../components';
 import s from './Category.module.scss';
-import Overlay from '../Overlay/Overlay';
 import { setCategory } from '../../store/slice/categoriSlice';
 
-export default function Category() {
+export default function AddCategory() {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
@@ -153,8 +150,8 @@ export default function Category() {
               </div>
             </div>
             <form onSubmit={handleFormSubmit}>
-              <TextFormInput placeholder="Nhập tên" value={name} setValue={setName} />
-              <TextFormInput placeholder="Nhập slug" value={slug} setValue={setSlug} />
+              <TextFormInput placeholder="Nhập tên" value={name} onChange={setName} />
+              <TextFormInput placeholder="Nhập slug" value={slug} onChange={setSlug} />
               <br />
               <PrimaryButton children={edit ? 'edit' : 'create'} />
             </form>
