@@ -8,6 +8,7 @@ export default function PostItem({
   image = 'https://jthemes.net/themes/wp/genz/wp-content/uploads/2023/02/news2-270x257.jpg',
   sticky = 'sticky',
   tagBtn = ['Healthy', 'Technology'],
+
   title = 'Digital Design That Will Help You Start Your Business',
   description = 'The fancy moon going in little artist painting. Thirty days of lavender in the dreamy light inside. Other perfect oh plants, for and again',
   tags = ['Lifestyle', 'Travel', 'Lifestyle'],
@@ -30,6 +31,7 @@ export default function PostItem({
             // </div>
           ))}
         </div>
+
         <a className={st.title}>{title}</a>
         <p className={st.description}>{description}</p>
         <div className={st.postBottom}>

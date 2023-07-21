@@ -23,3 +23,4 @@ export { default as Editor } from './Editor/Editor';
 export { default as Loading } from './Loading/Loading';
 export { default as Overlay } from './Overlay/Overlay';
 export { default as CheckboxSelect } from './CheckboxSelect/CheckboxSelect';
+export { default as Category } from './Category/Category';

@@ -1,12 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from 'react';
 
-import s from "./Header.module.scss";
-import { DarkModeBtn, Logo, MobileNav, NavItem } from "../../components";
-import { FaBars } from "react-icons/fa";
+import s from './Header.module.scss';
+import { DarkModeBtn, Logo, MobileNav, NavItem } from '../../components';
+import { FaBars } from 'react-icons/fa';
 
-import { IoClose } from "react-icons/io5";
-import { Link } from "react-router-dom";
-import Account from "./Account";
+import { IoClose } from 'react-icons/io5';
+import { Link } from 'react-router-dom';
+import Account from './Account';
 
 export default function Header() {
   const headerRef = useRef(null);
@@ -17,20 +17,20 @@ export default function Header() {
   useEffect(() => {
     const hideHeader = () => {
       if (window.pageYOffset > 98 && window.pageYOffset < 500) {
-        headerRef.current.style.top = "-50px";
-        headerRef.current.style.borderBottom = "1px solid #ccc";
+        headerRef.current.style.top = '-50px';
+        headerRef.current.style.borderBottom = '1px solid #ccc';
       } else if (window.pageYOffset > 500) {
-        headerRef.current.style.position = "fixed";
-        headerRef.current.style.top = "0";
-        headerRef.current.style.borderBottom = "1px solid #ccc";
+        headerRef.current.style.position = 'fixed';
+        headerRef.current.style.top = '0';
+        headerRef.current.style.borderBottom = '1px solid #ccc';
       } else {
-        headerRef.current.style.position = "unset";
-        headerRef.current.style.borderBottom = "none";
+        headerRef.current.style.position = 'unset';
+        headerRef.current.style.borderBottom = 'none';
         // headerRef.current.style.top = '0';
       }
     };
-    window.addEventListener("scroll", hideHeader);
-    return () => window.removeEventListener("scroll", hideHeader);
+    window.addEventListener('scroll', hideHeader);
+    return () => window.removeEventListener('scroll', hideHeader);
   });
 
   return (
@@ -45,9 +45,9 @@ export default function Header() {
             name="Front-end"
             icon={false}
             options={[
-              { name: "HTML", icon: false, link: "/home" },
-              { name: "CSS", icon: false, link: "/home" },
-              { name: "JavaScript", icon: false, link: "/home" },
+              { name: 'HTML', icon: false, link: '/home' },
+              { name: 'CSS', icon: false, link: '/home' },
+              { name: 'JavaScript', icon: false, link: '/home' },
             ]}
           />
         </li>
@@ -56,10 +56,10 @@ export default function Header() {
             name="Back-end"
             icon={false}
             options={[
-              { name: "JavaScript", icon: false, link: "/home" },
-              { name: "NodeJS", icon: false, link: "/home" },
-              { name: "MongoDB", icon: false, link: "/home" },
-              { name: "library", icon: false, link: "/home" },
+              { name: 'JavaScript', icon: false, link: '/home' },
+              { name: 'NodeJS', icon: false, link: '/home' },
+              { name: 'MongoDB', icon: false, link: '/home' },
+              { name: 'library', icon: false, link: '/home' },
             ]}
           />
         </li>
@@ -68,8 +68,8 @@ export default function Header() {
             name="UI/UX"
             icon={false}
             options={[
-              { name: "UI Designer", icon: false, link: "/home" },
-              { name: "UX Designer", icon: false, link: "/home" },
+              { name: 'UI Designer', icon: false, link: '/home' },
+              { name: 'UX Designer', icon: false, link: '/home' },
             ]}
           />
         </li>
@@ -78,9 +78,9 @@ export default function Header() {
             name="Tips & Tricks"
             icon={false}
             options={[
-              { name: "CSS", icon: false, link: "/home" },
-              { name: "HTML", icon: false, link: "/home" },
-              { name: "Visual studio code", icon: false, link: "/home" },
+              { name: 'CSS', icon: false, link: '/home' },
+              { name: 'HTML', icon: false, link: '/home' },
+              { name: 'Visual studio code', icon: false, link: '/home' },
             ]}
           />
         </li>
@@ -97,14 +97,14 @@ export default function Header() {
         <div className={s.burger} onClick={toggleNav}>
           <FaBars size={24} />
         </div>
-        <div className={s.loginRegis}>
-          <Link to="/signup" className={s.register}>
-            Đăng ký
-          </Link>
-          <Link to="/login" className={s.login}>
-            Đăng nhập
-          </Link>
-        </div>
+        {/* <div className={s.loginRegis}>
+                    <Link to="/register" className={s.register}>
+                        Đăng ký
+                    </Link>
+                    <Link to="/login" className={s.login}>
+                        Đăng nhập
+                    </Link>
+                </div> */}
         <Account />
       </div>
       <div className={`${s.mobieHeader} ${!toggle && s.hidden}`}>
@@ -121,27 +121,27 @@ export default function Header() {
               name="Front-end"
               icon={false}
               options={[
-                { name: "HTML", icon: false, link: "/home" },
-                { name: "CSS", icon: false, link: "/home" },
-                { name: "JavaScript", icon: false, link: "/home" },
+                { name: 'HTML', icon: false, link: '/home' },
+                { name: 'CSS', icon: false, link: '/home' },
+                { name: 'JavaScript', icon: false, link: '/home' },
               ]}
             />
             <MobileNav
               name="Front-end"
               icon={false}
               options={[
-                { name: "HTML", icon: false, link: "/home" },
-                { name: "CSS", icon: false, link: "/home" },
-                { name: "JavaScript", icon: false, link: "/home" },
+                { name: 'HTML', icon: false, link: '/home' },
+                { name: 'CSS', icon: false, link: '/home' },
+                { name: 'JavaScript', icon: false, link: '/home' },
               ]}
             />
             <MobileNav
               name="Front-end"
               icon={false}
               options={[
-                { name: "HTML", icon: false, link: "/home" },
-                { name: "CSS", icon: false, link: "/home" },
-                { name: "JavaScript", icon: false, link: "/home" },
+                { name: 'HTML', icon: false, link: '/home' },
+                { name: 'CSS', icon: false, link: '/home' },
+                { name: 'JavaScript', icon: false, link: '/home' },
               ]}
             />
           </div>
