@@ -1,10 +1,10 @@
-import { useParams } from "react-router-dom";
-import BreadCrumb from "../../components/BreadCrumb/BreadCrumb";
-import s from "./PostDetail.module.scss";
-import g from "../../style.module.scss";
-import { Author, BlockItem, RecentBlock, Comment } from "../../components";
-import clsx from "clsx";
-import { useEffect, useRef } from "react";
+import { useParams } from 'react-router-dom';
+import BreadCrumb from '../../components/BreadCrumb/BreadCrumb';
+import s from './PostDetail.module.scss';
+import g from '../../style.module.scss';
+import { Author, BlockItem, RecentBlock, Comment } from '../../components';
+import clsx from 'clsx';
+import { useEffect, useRef } from 'react';
 const _content = `<p>
 Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis ratione nisi vero
 asperiores explicabo voluptatum ea nam animi, as 10 tempora et commodi a magnam cumque modi
@@ -21,6 +21,8 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis ratione nis
 asperiores explicabo voluptatum ea nam animi, as 10 tempora et commodi a magnam cumque modi
 quo amet impedit! Animi, aperiam.
 </p>`;
+import { findCommentById } from '../../alternates/comments';
+const commentIds = ['64b8df052320b7312a9ffb75'];
 function PostDetail({ content = _content }) {
   const contentRef = useRef();
   const { slug } = useParams();
@@ -34,21 +36,21 @@ function PostDetail({ content = _content }) {
       </div>
       <div className={s.heading}>
         <div className={s.leftHeading}>
-          <h1 className={s.title}>
-            Five places must visit in turkey to relax in the winter season
-          </h1>
+          <h1 className={s.title}>Five places must visit in turkey to relax in the winter season</h1>
           <Author />
         </div>
         <div className={s.rightHeading}>Share to fb</div>
       </div>
       <main className={clsx(s.main, g.flex)}>
         <div>
-          <div className={clsx(g.content, s.content)} ref={contentRef}></div>
+          <div className={clsx(g.content, s.content, 'ql-editor')} ref={contentRef}></div>
           <div>
-            <h1 style={{ marginTop: "1rem" }}>Comments</h1>
+            <h1 style={{ marginTop: '1rem' }}>Comments</h1>
             <small>Login to comment.</small>
             <section className={s.comments}>
-              <Comment>This is a comment</Comment>
+              {commentIds.map((commentId) => (
+                <Comment key={commentId} data={findCommentById(commentId)} />
+              ))}
             </section>
           </div>
         </div>
