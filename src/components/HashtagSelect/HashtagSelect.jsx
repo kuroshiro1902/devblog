@@ -1,6 +1,6 @@
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
-// import axios from 'axios';
-import useGetData from '../../hooks/useGetData';
+import axios from 'axios';
+import findIndexByObject from '../../utils/find/findIndexByObject';
 import host from '../../host.config';
 import { FaAngleDown } from 'react-icons/fa';
 import s from './HashtagSelect.module.scss';
@@ -14,56 +14,39 @@ function HashtagSelect({ handleSelectedOptions = () => {}, name, required = fals
   const [options, setOptions] = useState([]);
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [searchValue, setSearchValue] = useState('');
-  const { data } = useGetData('searchHashtags', `${host}/hashtags?search=${searchValue}`);
-  console.log(data);
+  const dropdownRef = useRef();
+  const handleFocus = (e) => {
+    e.stopPropagation();
+    setHide(dropdownRef);
+  };
+  const searchHashtags = async (searchValue) => {
+    if (searchValue.trim() !== '') {
+      try {
+        const response = await axios.get(`${host}/hashtags?search=${searchValue}`);
+        setOptions(response.data);
+      } catch (error) {
+        setOptions([]);
+        console.warn(err);
+      }
+    } else setOptions([]);
+  };
+  const handleSelected = useCallback((selectedOptions, option) => {
+    findIndexByObject(selectedOptions, option) === -1 ? setSelectedOptions((prev) => [...prev, option]) : null;
+  }, []);
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (!dropdownRef.current.contains(event.target)) {
         setHide(dropdownRef);
       }
     };
-
     document.body.addEventListener('click', handleClickOutside);
-
     return () => {
       document.body.removeEventListener('click', handleClickOutside);
     };
   }, []);
-  const dropdownRef = useRef();
-  const handleFocus = (e) => {
-    e.stopPropagation();
-    setHide(dropdownRef);
-  };
-  const handleSearch = async (e) => {
-    try {
-      const value = e.target.value;
-      // const response = await axios.get(`${host}/hashtags`);
-      // setOptions(response.data);
-    } catch (error) {
-      setOptions([]);
-      setDisplayText('Error');
-      console.warn(err);
-    }
-  };
-  const handleSelected = useCallback((value, options) => {
-    const optionsLength = options.length;
-    for (let i = 0; i < optionsLength; i++) {
-      //value của input được set bằng _id
-      if (value === options[i]._id) {
-        //đảo ngược giá trị selected của option trong mảng options ban đầu
-        options[i].selected = !options[i].selected;
-        break;
-      }
-    }
-    //set các option đã select
-    const _selectedOptions = options.filter((option) => {
-      const isSelected = option.selected;
-      return isSelected === true;
-    });
-    console.log('selected: ', _selectedOptions);
-    setSelectedOptions(_selectedOptions);
-    handleSelectedOptions(_selectedOptions);
-  }, []);
+  useEffect(() => {
+    searchHashtags(searchValue);
+  }, [searchValue]);
   console.log('render HashtagSelect');
   return (
     <div onClick={handleFocus}>
@@ -116,10 +99,9 @@ function HashtagSelect({ handleSelectedOptions = () => {}, name, required = fals
                         name={name}
                         required={required}
                         value={option._id}
-                        checked={option.selected}
-                        onChange={(e) => {
-                          const value = e.target.value;
-                          handleSelected(value, options);
+                        checked={findIndexByObject(selectedOptions, option) !== -1}
+                        onChange={() => {
+                          handleSelected(selectedOptions, option);
                         }}
                       />{' '}
                       {option.name}

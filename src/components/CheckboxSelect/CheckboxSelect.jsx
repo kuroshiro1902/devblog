@@ -1,7 +1,7 @@
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { FaAngleDown } from 'react-icons/fa';
 import s from './CheckboxSelect.module.scss';
-import findObjectsByKeyword from '../../utils/find/FindObjectsByKeyword';
+import findObjectsByKeyword from '../../utils/find/findObjectsByKeyword';
 const setHide = (ref) => {
   ref.current.classList.remove(s.show);
 };
