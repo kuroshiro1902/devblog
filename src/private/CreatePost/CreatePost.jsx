@@ -10,6 +10,7 @@ import {
   SecondaryButton,
   Overlay,
   Loading,
+  HashtagSelect,
 } from '../../components';
 import Preview from './Preview';
 import s from './CreatePost.module.scss';
@@ -137,11 +138,17 @@ function WritePost() {
         </section>
         <section className={s.category}>
           <h3>Categories</h3>
-          <CheckboxSelect optionDatas={categories} handleSelectedOptions={setSelectedCategories} name={'categories'} />
+          <div style={{ maxWidth: 600 }}>
+            <CheckboxSelect
+              optionDatas={categories}
+              handleSelectedOptions={setSelectedCategories}
+              name={'categories'}
+            />
+          </div>
         </section>
         <section className={s.hashtag}>
           <h3>hashtags</h3>
-          {/* <CheckboxSelect optionDatas={categories} handleSelectedOptions={setSelectedCategories} name={'categories'} /> */}
+          <HashtagSelect optionDatas={categories} handleSelectedOptions={setSelectedCategories} name={'categories'} />
         </section>
         <Editor />
         <div className={s.buttons}>
@@ -159,6 +166,7 @@ function WritePost() {
               let data = {
                 title: title.trim(),
                 thumbnailFile,
+                selectedCategories,
                 content: editorDOM.innerHTML,
               };
               handleSend(data);

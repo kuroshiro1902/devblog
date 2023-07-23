@@ -1,18 +1,21 @@
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
+// import axios from 'axios';
+import useGetData from '../../hooks/useGetData';
+import host from '../../host.config';
 import { FaAngleDown } from 'react-icons/fa';
-import s from './CheckboxSelect.module.scss';
-import findObjectsByKeyword from '../../utils/find/FindObjectsByKeyword';
+import s from './HashtagSelect.module.scss';
 const setHide = (ref) => {
   ref.current.classList.remove(s.show);
 };
 const setShow = (ref) => {
   ref.current.classList.add(s.show);
 };
-const getSelectedOptions = (options) => {};
-function CheckboxSelect({ optionDatas = [], handleSelectedOptions = () => {}, name, required = false }) {
+function HashtagSelect({ handleSelectedOptions = () => {}, name, required = false }) {
   const [options, setOptions] = useState([]);
   const [selectedOptions, setSelectedOptions] = useState([]);
-  const [displayOptions, setDisplayOptions] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
+  const { data } = useGetData('searchHashtags', `${host}/hashtags?search=${searchValue}`);
+  console.log(data);
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (!dropdownRef.current.contains(event.target)) {
@@ -26,45 +29,42 @@ function CheckboxSelect({ optionDatas = [], handleSelectedOptions = () => {}, na
       document.body.removeEventListener('click', handleClickOutside);
     };
   }, []);
-  useEffect(() => {
-    const _options = optionDatas.map((optionData) => {
-      return { ...optionData, selected: false };
-    });
-    setOptions(_options);
-    setDisplayOptions(_options);
-  }, [optionDatas]);
   const dropdownRef = useRef();
   const handleFocus = (e) => {
     e.stopPropagation();
     setHide(dropdownRef);
   };
-  const handleSearch = (e) => {
-    const value = e.target.value;
-    setDisplayOptions(findObjectsByKeyword(options, value));
+  const handleSearch = async (e) => {
+    try {
+      const value = e.target.value;
+      // const response = await axios.get(`${host}/hashtags`);
+      // setOptions(response.data);
+    } catch (error) {
+      setOptions([]);
+      setDisplayText('Error');
+      console.warn(err);
+    }
   };
-  const handleSelected = useCallback(
-    (value, options) => {
-      const optionsLength = options.length;
-      for (let i = 0; i < optionsLength; i++) {
-        //value của input được set bằng _id
-        if (value === options[i]._id) {
-          //đảo ngược giá trị selected của option trong mảng options ban đầu
-          options[i].selected = !options[i].selected;
-          break;
-        }
+  const handleSelected = useCallback((value, options) => {
+    const optionsLength = options.length;
+    for (let i = 0; i < optionsLength; i++) {
+      //value của input được set bằng _id
+      if (value === options[i]._id) {
+        //đảo ngược giá trị selected của option trong mảng options ban đầu
+        options[i].selected = !options[i].selected;
+        break;
       }
-      //set các option đã select
-      const _selectedOptions = options.filter((option) => {
-        const isSelected = option.selected;
-        return isSelected === true;
-      });
-      console.log('selected: ', _selectedOptions);
-      setSelectedOptions(_selectedOptions);
-      handleSelectedOptions(_selectedOptions);
-    },
-    [optionDatas],
-  );
-  console.log('render CheckboxSelect');
+    }
+    //set các option đã select
+    const _selectedOptions = options.filter((option) => {
+      const isSelected = option.selected;
+      return isSelected === true;
+    });
+    console.log('selected: ', _selectedOptions);
+    setSelectedOptions(_selectedOptions);
+    handleSelectedOptions(_selectedOptions);
+  }, []);
+  console.log('render HashtagSelect');
   return (
     <div onClick={handleFocus}>
       <div
@@ -96,10 +96,17 @@ function CheckboxSelect({ optionDatas = [], handleSelectedOptions = () => {}, na
           e.stopPropagation();
         }}
       >
-        <input className={s.search} spellCheck={false} placeholder="Search" onChange={handleSearch} />
+        <input
+          className={s.search}
+          spellCheck={false}
+          placeholder="Search"
+          onChange={(e) => {
+            setSearchValue(e.target.value);
+          }}
+        />
         <ul className={s.optionlist}>
-          {displayOptions.length > 0
-            ? displayOptions.map((option, index) => {
+          {options.length > 0
+            ? options.map((option, index) => {
                 return (
                   <li key={index}>
                     <label>
@@ -121,11 +128,11 @@ function CheckboxSelect({ optionDatas = [], handleSelectedOptions = () => {}, na
                   </li>
                 );
               })
-            : 'No option.'}
+            : 'No hashtags found'}
         </ul>
       </div>
     </div>
   );
 }
 
-export default memo(CheckboxSelect);
+export default memo(HashtagSelect);
