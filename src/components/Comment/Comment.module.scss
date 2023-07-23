@@ -1,4 +1,5 @@
-.comment {
+.comment,
+.replyComment {
   --avatar-width: 2rem;
   --gap: 0.6rem;
   border-radius: 0.5rem;
@@ -13,6 +14,7 @@
   }
   .main {
     .content {
+      position: relative;
       padding-left: calc(var(--avatar-width) + var(--gap));
       padding-bottom: 1rem;
     }
@@ -21,11 +23,8 @@
     }
   }
   .replies {
-    &::before {
-      top: 0;
-      bottom: 1.25rem;
-    }
     padding-left: 2rem;
+    position: relative;
   }
 }
 .line {
@@ -36,6 +35,21 @@
     position: absolute;
     width: 2px;
     background-color: var(--border);
+    top: 0;
+    bottom: 1.25rem;
+    //
+    left: 1rem;
+  }
+}
+.continueLine {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    background-color: var(--border);
+    top: 0;
     bottom: 0;
     //
     left: 1rem;

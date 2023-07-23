@@ -105,14 +105,7 @@ function WritePost() {
       <form className={s.createPost}>
         <section className={s.title}>
           <h3>TITLE</h3>
-          <TextFormInput
-            placeholder="Title"
-            name={'title'}
-            required
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-          />
+          <TextFormInput placeholder="Title" name={'title'} required value={title} onChange={setTitle} />
         </section>
         <section className={s.thumbnail}>
           <h3>THUMBNAIL</h3>
@@ -148,6 +141,7 @@ function WritePost() {
         </section>
         <section className={s.hashtag}>
           <h3>hashtags</h3>
+          {/* <CheckboxSelect optionDatas={categories} handleSelectedOptions={setSelectedCategories} name={'categories'} /> */}
         </section>
         <Editor />
         <div className={s.buttons}>

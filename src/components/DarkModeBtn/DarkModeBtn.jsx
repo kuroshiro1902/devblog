@@ -4,7 +4,9 @@ export default function DarkModeBtn() {
   const [modeElement, setModeElement] = useState(null);
   const [isDarkMode, setIsDarkMode] = useState(localStorage.getItem('mode') === 'light' ? false : true);
   useEffect(() => {
-    setModeElement(document.querySelector('.mode'));
+    const modeCtn = document.querySelector('.mode');
+    modeCtn.id = localStorage.getItem('mode');
+    setModeElement(modeCtn);
   }, []);
   useEffect(() => {
     if (modeElement) {
