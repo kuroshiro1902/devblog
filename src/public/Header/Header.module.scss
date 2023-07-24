@@ -56,11 +56,12 @@
       padding: 30px;
       top: 0;
       bottom: 0;
-      right: 0;
+      right: -100%;
       max-width: 370px;
       background-color: var(--card-bg);
       width: calc(100% - 24px);
       z-index: 12;
+      transition: all 0.5s linear;
 
       .mobieLogoTop {
         display: flex;

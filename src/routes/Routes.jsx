@@ -11,7 +11,7 @@ function Routes() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/posts/:slug" element={<PostDetail />} />
       <Route path="/posts" element={<Posts />} />
-      <Route path="/admin" element={<Admin />} />
+      <Route path="/profile/*" element={<Admin />} />
 
       <Route path="/" element={<Home />} />
     </ReactRoutes>
