@@ -3,15 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Overlay, TextFormInput, PrimaryButton } from '../../components';
 import s from './Category.module.scss';
 import { setCategory } from '../../store/slice/categoriSlice';
+import AddForm from './AddForm';
 
 export default function AddCategory() {
   const dispatch = useDispatch();
-  const [name, setName] = useState('');
-  const [slug, setSlug] = useState('');
-  const [edit, setEdit] = useState(false);
-  const [cid, setCid] = useState(null);
-  // const [Cate, setCate] = useState(null);
-  const formRef = useRef(null);
+
+  const [editData, setEditData] = useState(null);
+  const [isShowForm, setIsShowForm] = useState(false);
   const { Categories } = useSelector((state) => state.category);
   console.log('first', Categories);
   const getCategory = () => {
@@ -24,7 +22,6 @@ export default function AddCategory() {
       .then((response) => response.json())
       .then((data) => {
         dispatch(setCategory(data));
-        // setCate(data);
       });
   };
 
@@ -32,78 +29,24 @@ export default function AddCategory() {
     console.log(1);
     getCategory();
   }, []);
-  const handleEditClick = (category, id) => {
-    setCid(id);
-    setName(category.name);
-    setSlug(category.slug);
-    setEdit(true);
-    formRef.current.style.display = 'block';
+  const handleEditClick = (category) => {
+    setEditData({ ...category });
+    setIsShowForm(true);
   };
   const handleCreateClick = () => {
-    setName('');
-    setSlug('');
-    setEdit(false);
-    formRef.current.style.display = 'block';
+    setEditData(null);
+    setIsShowForm(true);
   };
   const closeCreate = () => {
-    formRef.current.style.display = 'none';
-  };
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    closeCreate();
-    if (edit) {
-      console.log(name, slug);
-      fetch(`http://localhost:3400/admin/edit/categoy/${cid}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, slug }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // getCategory();
-          console.log(data);
-          dispatch(setCategory(data));
-        });
-    } else {
-      console.log(name, slug);
-      fetch('http://localhost:3400/admin/create/category', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, slug }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // getCategory();
-          dispatch(setCategory([...Categories, data]));
-          console.log(data);
-        });
-    }
+    setIsShowForm(false);
   };
 
   const deleteCategory = (id) => {
     fetch(`http://localhost:3400/admin/delete/categoy/${id}`, {
       method: 'DELETE',
     })
-      // .then((response) => {
-      //   console.log('response', response);
-      //   if (response.ok) {
-      //     // getCategory();
-      //     console.log(response);
-      //     dispatch(setCategory(response.data));
-
-      //     console.log('Bài viết đã được xoá thành công');
-      //   } else {
-      //     console.log('Không thể xoá bài viết');
-      //   }
-      // }
-      // );
       .then((response) => response.json())
       .then((data) => {
-        // getCategory();
         console.log('wsss', data);
         dispatch(setCategory(data));
         console.log(data);
@@ -129,7 +72,7 @@ export default function AddCategory() {
               <td className={s.td}>{item.slug}</td>
 
               <td className={s.td}>
-                <button onClick={() => handleEditClick(item, item._id)}>Sửa</button>
+                <button onClick={() => handleEditClick(item)}>Sửa</button>
 
                 <button onClick={() => deleteCategory(item._id)}>Xóa</button>
               </td>
@@ -138,26 +81,8 @@ export default function AddCategory() {
         </tbody>
       </table>
       <br />
-      <PrimaryButton children="Thêm Categogy mới" onClick={() => handleCreateClick()} />
-      <div className={s.create} ref={formRef}>
-        {/* <div className={s.overlay} onClick={closeCreate}></div> */}
-        <Overlay handleClose={closeCreate}>
-          <div className={s.form} onClick={(e) => e.stopPropagation()}>
-            <div className={s.header}>
-              <h3>{edit ? 'Sửa danh mục' : 'Thêm danh mục'}</h3>
-              <div className={s.close} onClick={closeCreate}>
-                X
-              </div>
-            </div>
-            <form onSubmit={handleFormSubmit}>
-              <TextFormInput placeholder="Nhập tên" value={name} onChange={setName} />
-              <TextFormInput placeholder="Nhập slug" value={slug} onChange={setSlug} />
-              <br />
-              <PrimaryButton children={edit ? 'edit' : 'create'} />
-            </form>
-          </div>
-        </Overlay>
-      </div>
+      <PrimaryButton children="Thêm Categogy mới" onClick={handleCreateClick} />
+      {isShowForm && <AddForm closeCreate={closeCreate} data={editData} />}
     </div>
   );
 }

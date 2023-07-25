@@ -11,8 +11,12 @@ import Account from './Account';
 export default function Header() {
   const headerRef = useRef(null);
   const [toggle, setToggle] = useState(false);
+  const mobideRef = useRef(null);
   const toggleNav = () => {
     setToggle(!toggle);
+    setTimeout(() => {
+      mobideRef.current.style.right = '0';
+    }, 250);
   };
   useEffect(() => {
     const hideHeader = () => {
@@ -109,7 +113,7 @@ export default function Header() {
       </div>
       <div className={`${s.mobieHeader} ${!toggle && s.hidden}`}>
         <div className={s.overlay} onClick={toggleNav}></div>
-        <div className={s.mobieContent}>
+        <div ref={mobideRef} className={s.mobieContent}>
           <div className={s.mobieLogoTop}>
             <Logo />
             <div className={s.mobieClose} onClick={toggleNav}>
