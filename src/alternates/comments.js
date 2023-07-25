@@ -2,7 +2,7 @@ const data = [
   {
     _id: '1',
     content: 'Hello',
-    replyIds: ['2', '4'],
+    replyIds: ['2'],
   },
   {
     _id: '2',
