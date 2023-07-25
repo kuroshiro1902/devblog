@@ -16,10 +16,10 @@ export default function Header() {
   };
   useEffect(() => {
     const hideHeader = () => {
-      if (window.pageYOffset > 98 && window.pageYOffset < 500) {
+      if (window.scrollY > 98 && window.scrollY < 500) {
         headerRef.current.style.top = '-50px';
         headerRef.current.style.borderBottom = '1px solid #ccc';
-      } else if (window.pageYOffset > 500) {
+      } else if (window.scrollY > 500) {
         headerRef.current.style.position = 'fixed';
         headerRef.current.style.top = '0';
         headerRef.current.style.borderBottom = '1px solid #ccc';

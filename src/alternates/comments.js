@@ -12,7 +12,7 @@ const data = [
   {
     _id: '3',
     content: 'Nice to meet you',
-    replyIds: ['4'],
+    replyIds: [],
   },
   {
     _id: '4',
@@ -27,51 +27,6 @@ const data = [
   {
     _id: '6',
     content: 'hello',
-    replyIds: ['7'],
-  },
-  {
-    _id: '7',
-    content: 'abc',
-    replyIds: ['8'],
-  },
-  {
-    _id: '8',
-    content: 'abc',
-    replyIds: ['9'],
-  },
-  {
-    _id: '9',
-    content: 'abc',
-    replyIds: ['10'],
-  },
-  {
-    _id: '10',
-    content: 'abc',
-    replyIds: ['11'],
-  },
-  {
-    _id: '11',
-    content: 'abc',
-    replyIds: ['12'],
-  },
-  {
-    _id: '12',
-    content: 'abc',
-    replyIds: ['13'],
-  },
-  {
-    _id: '13',
-    content: 'abc',
-    replyIds: ['14'],
-  },
-  {
-    _id: '14',
-    content: 'abc',
-    replyIds: ['15'],
-  },
-  {
-    _id: '15',
-    content: 'abc',
     replyIds: [],
   },
 ];

@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import reduceImageFile from '../../utils/images/reduceImageFile';
+import useGetData from '../../hooks/useGetData';
 import host from '../../host.config';
+import reduceImageFile from '../../utils/images/reduceImageFile';
 import {
   Editor,
   TextFormInput,
@@ -10,16 +11,15 @@ import {
   SecondaryButton,
   Overlay,
   Loading,
+  HashtagSelect,
 } from '../../components';
 import Preview from './Preview';
-import s from './CreatePost.module.scss';
 import { createImageFilesFromSrcs, sendAllFilesToUrl, dataValidation } from './prepocessors';
-import getCategories from '../../alternates/getCategories';
-
+import s from './CreatePost.module.scss';
 let editorDOM;
 function WritePost() {
-  const [categories, setCategories] = useState([]);
-  //
+  const { data: categories, isFetching: isFetchingCategories } = useGetData(['categories'], `${host}/categories`);
+  //form Data
   const [title, setTitle] = useState('');
   const [thumbnailFile, setThumbnailFile] = useState(''); //type: File
   const [selectedCategories, _setSelectedCategories] = useState([]);
@@ -31,10 +31,6 @@ function WritePost() {
   const [isPreviewing, setIsPreviewing] = useState(false);
   const [isUploadingImageFile, setIsUploadingImageFile] = useState(false);
   const thumbnailRef = useRef();
-  //temp
-  useEffect(() => {
-    getCategories().then((data) => setCategories(data));
-  }, []);
   //
   useEffect(() => {
     editorDOM = document.getElementsByClassName('ql-editor')[0];
@@ -101,18 +97,10 @@ function WritePost() {
   }, []);
   return (
     <>
-      {/* <CreatePostContext.Provider /> */}
       <form className={s.createPost}>
         <section className={s.title}>
           <h3>TITLE</h3>
-          <TextFormInput
-            placeholder="Title"
-            name={'title'}
-            required
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-          />
+          <TextFormInput placeholder="Title" name={'title'} required value={title} onChange={setTitle} />
         </section>
         <section className={s.thumbnail}>
           <h3>THUMBNAIL</h3>
@@ -144,10 +132,17 @@ function WritePost() {
         </section>
         <section className={s.category}>
           <h3>Categories</h3>
-          <CheckboxSelect optionDatas={categories} handleSelectedOptions={setSelectedCategories} name={'categories'} />
+          <div style={{ maxWidth: 600 }}>
+            <CheckboxSelect
+              optionDatas={isFetchingCategories ? [] : categories}
+              handleSelectedOptions={setSelectedCategories}
+              name={'categories'}
+            />
+          </div>
         </section>
         <section className={s.hashtag}>
           <h3>hashtags</h3>
+          <HashtagSelect handleSelectedOptions={() => {}} name={'hashtags'} />
         </section>
         <Editor />
         <div className={s.buttons}>
@@ -165,6 +160,7 @@ function WritePost() {
               let data = {
                 title: title.trim(),
                 thumbnailFile,
+                selectedCategories,
                 content: editorDOM.innerHTML,
               };
               handleSend(data);

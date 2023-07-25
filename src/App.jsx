@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import store from './store/store';
 const queryClient = new QueryClient();
 import Routes from './routes/Routes';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 function App() {
   return (
     <Provider store={store}>
@@ -18,6 +19,7 @@ function App() {
             </div>
             <Footer />
           </Router>
+          <ReactQueryDevtools />
         </QueryClientProvider>
       </div>
     </Provider>

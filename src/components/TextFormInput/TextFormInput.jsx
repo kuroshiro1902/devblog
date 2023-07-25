@@ -19,11 +19,10 @@ function TextFormInput({
         placeholder={placeholder}
         type={type}
         name={name}
-        required = {required}
+        required={required}
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
-
     </div>
   );
 }

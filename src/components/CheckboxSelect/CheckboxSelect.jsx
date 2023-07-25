@@ -1,6 +1,7 @@
-import { memo, useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { FaAngleDown } from 'react-icons/fa';
 import s from './CheckboxSelect.module.scss';
-import findObjectsByKeyword from '../../utils/find/FindObjectsByKeyword';
+import findObjectsByKeyword from '../../utils/find/findObjectsByKeyword';
 const setHide = (ref) => {
   ref.current.classList.remove(s.show);
 };
@@ -12,14 +13,6 @@ function CheckboxSelect({ optionDatas = [], handleSelectedOptions = () => {}, na
   const [options, setOptions] = useState([]);
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [displayOptions, setDisplayOptions] = useState([]);
-  useEffect(() => {
-    const _options = optionDatas.map((optionData) => {
-      return { ...optionData, selected: false };
-    });
-    setOptions(_options);
-    setDisplayOptions(_options);
-  }, [optionDatas]);
-  const dropdownRef = useRef();
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (!dropdownRef.current.contains(event.target)) {
@@ -33,6 +26,14 @@ function CheckboxSelect({ optionDatas = [], handleSelectedOptions = () => {}, na
       document.body.removeEventListener('click', handleClickOutside);
     };
   }, []);
+  useEffect(() => {
+    const _options = optionDatas.map((optionData) => {
+      return { ...optionData, selected: false };
+    });
+    setOptions(_options);
+    setDisplayOptions(_options);
+  }, [optionDatas]);
+  const dropdownRef = useRef();
   const handleFocus = (e) => {
     e.stopPropagation();
     setHide(dropdownRef);
@@ -41,24 +42,29 @@ function CheckboxSelect({ optionDatas = [], handleSelectedOptions = () => {}, na
     const value = e.target.value;
     setDisplayOptions(findObjectsByKeyword(options, value));
   };
-  const handleSelected = (e) => {
-    const value = e.target.value;
-    const optionsLength = options.length;
-    for (let i = 0; i < optionsLength; i++) {
-      //value của input được set bằng _id
-      if (value === options[i]._id) {
-        options[i].selected = !options[i].selected;
-        break;
+  const handleSelected = useCallback(
+    (value, options) => {
+      const optionsLength = options.length;
+      for (let i = 0; i < optionsLength; i++) {
+        //value của input được set bằng _id
+        if (value === options[i]._id) {
+          //đảo ngược giá trị selected của option trong mảng options ban đầu
+          options[i].selected = !options[i].selected;
+          break;
+        }
       }
-    }
-    const _selectedOptions = options.filter((option) => {
-      const isSelected = option.selected;
-      return isSelected === true;
-    });
-    setSelectedOptions(_selectedOptions);
-    handleSelectedOptions(_selectedOptions);
-  };
-
+      //set các option đã select
+      const _selectedOptions = options.filter((option) => {
+        const isSelected = option.selected;
+        return isSelected === true;
+      });
+      console.log('selected: ', _selectedOptions);
+      setSelectedOptions(_selectedOptions);
+      handleSelectedOptions(_selectedOptions);
+    },
+    [optionDatas],
+  );
+  console.log('render CheckboxSelect');
   return (
     <div onClick={handleFocus}>
       <div
@@ -68,13 +74,20 @@ function CheckboxSelect({ optionDatas = [], handleSelectedOptions = () => {}, na
         }}
         className={s.display}
       >
-        {selectedOptions.length > 0
-          ? selectedOptions.map((chosenOption, index) => (
+        <p>
+          {selectedOptions.length > 0 ? (
+            selectedOptions.map((chosenOption, index) => (
               <span className={s.chosen} key={index}>
                 {chosenOption.name}
               </span>
             ))
-          : '--Select some options--'}
+          ) : (
+            <span> --Select some options-- </span>
+          )}
+        </p>
+        <span>
+          <FaAngleDown style={{ height: 24 }} />
+        </span>
       </div>
       <div
         className={s.dropdown}
@@ -89,19 +102,22 @@ function CheckboxSelect({ optionDatas = [], handleSelectedOptions = () => {}, na
             ? displayOptions.map((option, index) => {
                 return (
                   <li key={index}>
-                    <input
-                      id={`option${index}`}
-                      type="checkbox"
-                      onClick={handleSelected}
-                      name={name}
-                      required={required}
-                      value={option._id}
-                      checked={option.selected}
-                      onChange={(e) => {
-                        e.target.checked = option.selected;
-                      }}
-                    />
-                    <label htmlFor={`option${index}`}>{option.name}</label>
+                    <label>
+                      <input
+                        id={`option${index}`}
+                        type="checkbox"
+                        name={name}
+                        required={required}
+                        value={option._id}
+                        checked={option.selected}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          handleSelected(value, options);
+                        }}
+                      />{' '}
+                      {option.name}
+                    </label>
+                    <span className={s.count}>12</span>
                   </li>
                 );
               })
