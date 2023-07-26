@@ -3,10 +3,10 @@ import { useRef, useEffect } from 'react';
 import clsx from 'clsx';
 import s from './CreatePost.module.scss';
 import g from '../../style.module.scss';
-function Preview({ content = 'content', handleClose }) {
+function Preview({ data = {}, handleClose }) {
   const contentRef = useRef();
   useEffect(() => {
-    contentRef.current.innerHTML = content;
+    contentRef.current.innerHTML = data?.content;
   }, []);
   return (
     <Overlay handleClose={handleClose}>
@@ -20,7 +20,7 @@ function Preview({ content = 'content', handleClose }) {
           <SecondaryButton onClick={handleClose}>X</SecondaryButton>
         </div>
         <div className={clsx(s.heading, g.flexCol)}>
-          <h1 className={s.title}>Five places must visit in turkey to relax in the winter season</h1>
+          <h1 className={s.title}>{data?.title}</h1>
           <Author />
         </div>
         <main className={clsx(s.main)}>

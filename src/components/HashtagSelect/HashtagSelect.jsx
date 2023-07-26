@@ -50,7 +50,6 @@ function HashtagSelect({ handleSelectedOptions = () => {}, name, required = fals
       document.body.removeEventListener('click', handleClickOutside);
     };
   }, []);
-  console.log('render HashtagSelect');
   return (
     <div onClick={handleFocus}>
       <div

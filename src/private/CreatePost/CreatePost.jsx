@@ -44,7 +44,8 @@ function WritePost() {
     }
   }, []);
   const handleSend = useCallback((data) => {
-    const { valid, message } = dataValidation(data);
+    const validationData = { content: data.content, title: data.title };
+    const { valid, message } = dataValidation(validationData);
     if (!valid) {
       alert(message);
       return;
@@ -62,38 +63,44 @@ function WritePost() {
       image.setAttribute('src', `image${index}`);
       return src;
     });
-    //tạo các ảnh từ các src trong content
-    createImageFilesFromSrcs(imgSrcs)
-      .then((files) => {
-        //Thêm file thumbnail vào CUỐI
-        files.push(data.thumbnailFile);
-        //gửi files
-        return sendAllFilesToUrl(files, host + '/uploadtocloud');
-      })
-      .then(async (responses) => {
-        //Lấy ra response cuối cùng (là res của thumbnail)
-        const { imageUrl: thumbnailUrl } = responses.pop();
-        //Xét lại url của các thẻ img
+    async function uploadData() {
+      try {
+        //tạo các ảnh từ các src trong content
+        const files = await createImageFilesFromSrcs(imgSrcs);
+
+        // Thêm file thumbnail vào CUỐI
+        if (data.thumbnailFile) files.push(data.thumbnailFile);
+
+        // Gửi files
+        const responses = await sendAllFilesToUrl(files, host + '/uploadtocloud');
+
+        // Lấy ra response cuối cùng (là res của thumbnail)
+        if (data.thumbnailFile) {
+          const { imageUrl: thumbnailUrl } = responses.pop();
+          // Xét lại thumbnail của data
+          data.thumbnailUrl = thumbnailUrl;
+        }
+
+        // Xét lại url của các thẻ img
         responses.forEach(({ index, imageUrl }) => {
           imgTags[index].setAttribute('src', imageUrl);
         });
-        //Xét lại thumbnail của data
-        data.thumbnailUrl = thumbnailUrl;
-        //Xét lại content của data
+
+        // Xét lại content của data
         data.content = editor.innerHTML;
 
         console.log('send: ', data);
-        return axios.post(host + '/posts/create', data);
-      })
-      .then(async (response) => {
+        const response = await axios.post(host + '/posts/create', data);
         console.log('res: ', response.data);
         setIsUploadingImageFile(false);
-      })
-      .catch((error) => {
+      } catch (error) {
         alert('Server không phản hồi. Vui lòng thử lại sau');
         console.error(error);
         setIsUploadingImageFile(false);
-      });
+      }
+    }
+
+    uploadData();
   }, []);
   return (
     <>
@@ -142,7 +149,7 @@ function WritePost() {
         </section>
         <section className={s.hashtag}>
           <h3>hashtags</h3>
-          <HashtagSelect handleSelectedOptions={() => {}} name={'hashtags'} />
+          <HashtagSelect handleSelectedOptions={setSelectedHashtags} name={'hashtags'} />
         </section>
         <Editor />
         <div className={s.buttons}>
@@ -150,17 +157,23 @@ function WritePost() {
             onClick={() => {
               setIsPreviewing(true);
             }}
+            type="button"
           >
             Preview
           </SecondaryButton>
           <PrimaryButton
+            type="submit"
             onClick={(e) => {
               e.preventDefault();
               //tạo data gửi đi
               let data = {
                 title: title.trim(),
                 thumbnailFile,
-                selectedCategories,
+                categories: selectedCategories.map((category) => {
+                  delete category.selected;
+                  return category;
+                }),
+                hashtags: selectedHashtags,
                 content: editorDOM.innerHTML,
               };
               handleSend(data);
@@ -176,7 +189,13 @@ function WritePost() {
         )}
         {isPreviewing && (
           <Preview
-            content={editorDOM.innerHTML}
+            data={{
+              title: title.trim(),
+              thumbnailFile,
+              categories: selectedCategories,
+              hashtags: selectedHashtags,
+              content: editorDOM.innerHTML,
+            }}
             handleClose={() => {
               setIsPreviewing(false);
             }}

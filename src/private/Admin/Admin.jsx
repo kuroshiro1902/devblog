@@ -1,5 +1,5 @@
 import React from 'react';
-import PostItem from '../../components/PostItem/PostItem';
+import { PrimaryButton } from '../../components';
 import s from './Admin.module.scss';
 import Infor from '../Infor/Infor';
 import Posts from '../Posts/Posts';
@@ -33,7 +33,9 @@ export default function Admin(banner, avt, name) {
             favorites Post
           </NavLink>
         </div>
-        <a className={s.ceratePost}>Tạo bài viết mới</a>
+        <PrimaryButton>
+          <a>Tạo bài viết mới</a>
+        </PrimaryButton>
       </nav>
       <div className={s.content}>
         <Routes>

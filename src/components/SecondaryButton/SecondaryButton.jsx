@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import s from './SecondaryButton.module.scss';
-function SecondaryButton({ children, title, rounded, disabled, className, circle, onClick }) {
+function SecondaryButton({ children, title, rounded, disabled, className, circle, onClick, type = 'button' }) {
   return (
     <button
       onClick={onClick}
@@ -11,6 +11,7 @@ function SecondaryButton({ children, title, rounded, disabled, className, circle
         className
       }
       disabled={disabled}
+      type={type}
     >
       {children}
     </button>

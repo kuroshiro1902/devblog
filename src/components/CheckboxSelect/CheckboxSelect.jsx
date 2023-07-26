@@ -58,13 +58,11 @@ function CheckboxSelect({ optionDatas = [], handleSelectedOptions = () => {}, na
         const isSelected = option.selected;
         return isSelected === true;
       });
-      console.log('selected: ', _selectedOptions);
-      setSelectedOptions(_selectedOptions);
-      handleSelectedOptions(_selectedOptions);
+      setSelectedOptions([..._selectedOptions]);
+      handleSelectedOptions([..._selectedOptions]);
     },
     [optionDatas],
   );
-  console.log('render CheckboxSelect');
   return (
     <div onClick={handleFocus}>
       <div

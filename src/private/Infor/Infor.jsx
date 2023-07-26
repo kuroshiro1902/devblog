@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './Infor.module.scss';
-import PostItem from '../../components/PostItem/PostItem';
+import { BlockItem, RecentBlock } from '../../components';
 export default function Infor() {
   return (
     <div className={s.content}>
@@ -26,10 +26,14 @@ export default function Infor() {
         </div>
       </div>
       <div className={s.contentRight}>
-        <PostItem />
-        <PostItem />
-        <PostItem />
-        <PostItem />
+        <RecentBlock title="Hoạt động gần đây">
+          <BlockItem />
+          <BlockItem />
+          <BlockItem />
+          <BlockItem />
+          <BlockItem />
+          <BlockItem />
+        </RecentBlock>
       </div>
     </div>
   );
