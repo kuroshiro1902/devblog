@@ -26,6 +26,7 @@ function SearchForm() {
         value={searchValue}
         required={false}
       ></TextFormInput>
+      <i className={s.notice}>*Dữ liệu sẽ được cập nhật mỗi 1 phút.</i>
       <div style={{ marginTop: '1.5rem' }}>
         <PrimaryButton>Search</PrimaryButton>
       </div>

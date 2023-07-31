@@ -5,8 +5,12 @@ const useGetData = (queryKey = ['data'], url = '', options = {}) => {
   return useQuery(
     [...queryKey],
     async () => {
-      const response = await axios.get(url);
-      return response.data;
+      try {
+        const response = await axios.get(url);
+        return response.data;
+      } catch (error) {
+        throw new Error(error.message);
+      }
     },
     { refetchOnMount: false, refetchOnWindowFocus: false, ...options },
   );
