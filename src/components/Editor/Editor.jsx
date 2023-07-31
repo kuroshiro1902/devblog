@@ -9,10 +9,13 @@ function reduceImageSize(editor) {
   const images = editor.querySelectorAll('img');
   images.forEach((img, index) => {
     const src = img.getAttribute('src');
-    if (!src.startsWith('blob')) {
-      const reduceImage = reduceImageFromBase64(src, `editorImage${index}`);
-      img.src = reduceImage.src;
+    let reduceImage;
+    if (src.startsWith('data:image')) {
+      reduceImage = reduceImageFromBase64(src, `editorImage${index}`);
+    } else {
+      reduceImage = { file: null, src: src };
     }
+    img.src = reduceImage.src;
   });
 }
 const Editor = () => {

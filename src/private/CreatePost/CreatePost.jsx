@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import useGetData from '../../hooks/useGetData';
 import host from '../../host.config';
@@ -17,6 +17,7 @@ import Preview from './Preview';
 import { createImageFilesFromSrcs, sendAllFilesToUrl, dataValidation } from './prepocessors';
 import s from './CreatePost.module.scss';
 let editorDOM;
+const virtualEditor = document.createElement('div');
 function WritePost() {
   const { data: categories, isFetching: isFetchingCategories } = useGetData(['categories'], `${host}/categories`);
   //form Data
@@ -44,6 +45,7 @@ function WritePost() {
     }
   }, []);
   const handleSend = useCallback((data) => {
+    //validation data
     const validationData = { content: data.content, title: data.title };
     const { valid, message } = dataValidation(validationData);
     if (!valid) {
@@ -53,10 +55,9 @@ function WritePost() {
     //
     setIsUploadingImageFile(true);
     //tạo editor ảo
-    const editor = document.createElement('div');
-    editor.innerHTML = data.content;
+    virtualEditor.innerHTML = data.content;
     //lấy ra các thẻ img trong editor ảo
-    const imgTags = editor.getElementsByTagName('img');
+    const imgTags = virtualEditor.getElementsByTagName('img');
     //lấy ra các src và đổi src của img
     const imgSrcs = Array.from(imgTags).map((image, index) => {
       const src = image.src;
@@ -87,7 +88,7 @@ function WritePost() {
         });
 
         // Xét lại content của data
-        data.content = editor.innerHTML;
+        data.content = virtualEditor.innerHTML;
 
         console.log('send: ', data);
         const response = await axios.post(host + '/posts/create', data);
@@ -152,6 +153,10 @@ function WritePost() {
           <HashtagSelect handleSelectedOptions={setSelectedHashtags} name={'hashtags'} />
         </section>
         <Editor />
+        <small style={{ color: 'crimson' }}>
+          *This is just a beta version, some editor features may not work properly (e.g. copying and pasting images), we
+          recommend you to upload images instead of pasting images into the editor.
+        </small>
         <div className={s.buttons}>
           <SecondaryButton
             onClick={() => {
@@ -165,8 +170,8 @@ function WritePost() {
             type="submit"
             onClick={(e) => {
               e.preventDefault();
-              //tạo data gửi đi
-              let data = {
+              // tạo data gửi đi
+              const data = {
                 title: title.trim(),
                 thumbnailFile,
                 categories: selectedCategories.map((category) => {
