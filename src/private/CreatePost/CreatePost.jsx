@@ -142,16 +142,16 @@ function WritePost() {
           <h3>Categories</h3>
           <div style={{ maxWidth: 600 }}>
             <CheckboxSelect
-              optionDatas={isFetchingCategories ? [] : categories}
+              optionDatas={!isFetchingCategories && !!categories ? categories : []}
               handleSelectedOptions={setSelectedCategories}
               name={'categories'}
             />
           </div>
         </section>
-        <section className={s.hashtag}>
+        {/* <section className={s.hashtag}>
           <h3>hashtags</h3>
           <HashtagSelect handleSelectedOptions={setSelectedHashtags} name={'hashtags'} />
-        </section>
+        </section> */}
         <Editor />
         <small style={{ color: 'crimson' }}>
           *This is just a beta version, some editor features may not work properly (e.g. copying and pasting images), we

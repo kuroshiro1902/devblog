@@ -10,8 +10,9 @@ function SearchForm() {
   const params = new URLSearchParams(location.search.trim());
   const handleSubmit = (e) => {
     e.preventDefault();
-    params.set('search', searchValue.trim());
-    navigate(`?${params.toString()}`);
+    // params.set('search', searchValue.trim());
+    // navigate(`?${params.toString()}`);
+    navigate(`?search=${searchValue.trim()}`);
   };
   useEffect(() => {
     const URLSearchValue = params.get('search');

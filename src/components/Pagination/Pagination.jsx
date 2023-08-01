@@ -1,28 +1,27 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import s from './Pagination.module.scss';
 import clsx from 'clsx';
-import { useMemo } from 'react';
-const Pagination = ({
-  totalPages = 10,
-  onPageChange = (i) => {
-    console.log(i);
-  },
-}) => {
-  const [currentIndex, setCurrentIndex] = useState(1);
-  const pageIndexs = useMemo(() => Array.from({ length: totalPages }, (_, index) => index + 1), []);
+
+const Pagination = ({ totalPages = 10, currentPage = 1 }) => {
+  const pageIndexs = Array.from({ length: totalPages }, (_, index) => index + 1);
+  const navigate = useNavigate();
+  //
+  const params = new URLSearchParams(location.search.trim());
+  const handlePageClick = (pageIndex) => {
+    params.set('page', +pageIndex);
+    navigate(`?${params.toString()}`);
+  };
   return (
     <div className={s.pagination}>
       {pageIndexs.map((pageIndex) => (
         <button
           key={pageIndex}
           type="button"
-          className={clsx('move-up', { [s.current]: pageIndex === currentIndex })}
+          className={clsx('move-up', { [s.current]: pageIndex === +currentPage })}
           title={`Page ${pageIndex}`}
-          onClick={() => {
-            onPageChange(pageIndex);
-            setCurrentIndex(pageIndex);
-          }}
-          disabled={pageIndex === currentIndex}
+          onClick={() => handlePageClick(pageIndex)}
+          disabled={pageIndex === +currentPage}
         >
           {pageIndex}
         </button>
