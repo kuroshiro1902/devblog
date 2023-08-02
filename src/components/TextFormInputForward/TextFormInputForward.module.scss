@@ -1,0 +1,16 @@
+.inputCtn {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #ddd;
+  input {
+    margin-left: 4px;
+    color: var(--text);
+    background-color: transparent;
+    border: none;
+    outline: none;
+    width: 100%;
+    &::placeholder {
+      color: var(--text);
+      opacity: 0.5;
+    }
+  }
+}

@@ -5,7 +5,6 @@ function TextFormInput({
   icon,
   type = 'text',
   name,
-
   required = true,
   className,
   value,
@@ -21,7 +20,8 @@ function TextFormInput({
         name={name}
         required={required}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={onChange}
+        autoComplete={'new-password'}
       />
     </div>
   );

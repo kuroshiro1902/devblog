@@ -108,7 +108,13 @@ function WritePost() {
       <form className={s.createPost}>
         <section className={s.title}>
           <h3>TITLE</h3>
-          <TextFormInput placeholder="Title" name={'title'} required value={title} onChange={setTitle} />
+          <TextFormInput
+            placeholder="Title"
+            name={'title'}
+            required
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
         </section>
         <section className={s.thumbnail}>
           <h3>THUMBNAIL</h3>
