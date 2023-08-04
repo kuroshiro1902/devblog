@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState, forwardRef } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import axios from 'axios';
 import { Heading, Overlay, PrimaryButton, TextFormInputForward, Loading } from '../../components';
 import { BiSolidUserCircle, BiSolidUser, BiSolidKey } from 'react-icons/bi';
@@ -25,21 +25,21 @@ function Signup() {
     confirmPassword: confirmPasswordRef,
   };
   //
-  const handleSubmit = useCallback(async (account, ref) => {
-    setIsSending(true);
+  const handleSubmit = useCallback(async (account) => {
     const validation = validate(account);
     if (!validation.success) {
       refs[validation.field].current?.focus();
       setWarning(validation);
       return;
     }
+    setIsSending(true);
     try {
       const { data } = await axios.post(host + '/accounts/signup', account);
       console.log(data);
       //nếu request gửi thành công và không có account trả về => account bị trùng username
       if (!!!data.account) {
         setWarning({ success: false, field: 'username', message: 'Username is already in use' });
-        ref.current?.focus();
+        refs[data.errorField].current?.focus();
       }
     } catch (err) {
       alert(err.message);
@@ -62,7 +62,7 @@ function Signup() {
               password: password,
               confirmPassword: confirmPassword,
             };
-            handleSubmit(data, refs.username);
+            handleSubmit(data);
           }}
         >
           <TextFormInputForward

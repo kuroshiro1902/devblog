@@ -1,33 +1,34 @@
 import unidecode from 'unidecode';
 export default function ({ fullname, username, password, confirmPassword }) {
-  if (!!!fullname) return emptyResult('fullname');
-  if (!!!username) return emptyResult('username');
-  if (!!!password) return emptyResult('password');
-  if (fullname.length < 6) return shortResult('fullname', 6);
-  if (username.length < 4) return shortResult('username', 4);
-  if (password.length < 6) return shortResult('password', 6);
-  if (containsSpecialCharacter(fullname)) return specialCharacterResult('fullname');
-  if (containsSpecialCharacter(username)) return specialCharacterResult('username');
-  if (password !== confirmPassword) return passwordConfirmResult('confirmPassword');
+  //check empty
+  if (!!!fullname) return emptyError('fullname');
+  if (!!!username) return emptyError('username');
+  if (!!!password) return emptyError('password');
+  //check special characters
+  if (/[^a-zA-Z0-9 ]/.test(unidecode(fullname))) return specialCharacterError('fullname');
+  if (/[^a-zA-Z0-9_]/.test(unidecode(username))) return specialCharacterError('username');
+  //check length
+  if (fullname.length < 6) return shortError('fullname', 6);
+  if (password.length < 6) return shortError('password', 6);
+  if (username.length < 4) return shortError('username', 4);
+  //check comfirm password
+  if (password !== confirmPassword) return passwordConfirmError('confirmPassword');
+  //validated
   return { success: true, field: '', message: '' };
 }
-function passwordConfirmResult(field) {
+function passwordConfirmError(field) {
   return { success: false, field: field, message: '*Password does not match' };
 }
-function emptyResult(field) {
+function emptyError(field) {
   return { success: false, field: field, message: `*${field} could not be empty` };
 }
-function shortResult(field, minimumLength) {
+function shortError(field, minimumLength) {
   return { success: false, field: field, message: `*${field} could not be shorter than ${minimumLength} characters` };
 }
-function specialCharacterResult(field) {
+function specialCharacterError(field) {
   return {
     success: false,
     field: field,
-    message: `*${field} could not contain special characters unless '_'`,
+    message: `*${field} could not contain special characters`,
   };
-}
-function containsSpecialCharacter(str) {
-  const regex = /[^a-zA-Z0-9_]/; // ^ in regex means negate, so we exclude alphanumeric characters and _
-  return regex.test(unidecode(str));
 }
