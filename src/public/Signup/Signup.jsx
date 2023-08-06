@@ -1,11 +1,13 @@
 import { useCallback, useRef, useState } from 'react';
 import axios from 'axios';
+import useLogin from '../../hooks/useLogin';
 import { Heading, Overlay, PrimaryButton, TextFormInputForward, Loading } from '../../components';
 import { BiSolidUserCircle, BiSolidUser, BiSolidKey } from 'react-icons/bi';
 import { GiConfirmed } from 'react-icons/gi';
 import host from '../../host.config';
 import validate from './validate';
 import s from './Signup.module.scss';
+import { useNavigate } from 'react-router-dom';
 function Signup() {
   const [fullname, setFullname] = useState('');
   const [username, setUsername] = useState('');
@@ -13,6 +15,7 @@ function Signup() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [warning, setWarning] = useState({});
   const [isSending, setIsSending] = useState(false);
+  const navigate = useNavigate();
   //refs
   const fullnameRef = useRef();
   const usernameRef = useRef();
@@ -40,6 +43,9 @@ function Signup() {
       if (!!!data.account) {
         setWarning({ success: false, field: 'username', message: 'Username is already in use' });
         refs[data.errorField].current?.focus();
+      } else {
+        //Nếu thành công và có account trả về
+        useLogin(data.account.token);
       }
     } catch (err) {
       alert(err.message);

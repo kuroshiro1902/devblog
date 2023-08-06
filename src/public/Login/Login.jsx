@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback } from 'react';
+import useLogin from '../../hooks/useLogin';
 import axios from 'axios';
 import { Heading, PrimaryButton, TextFormInputForward, Overlay, Loading } from '../../components';
 import { BiSolidUser, BiSolidKey } from 'react-icons/bi';
@@ -10,7 +11,7 @@ function Login() {
   const [password, setPassword] = useState('');
   const [warning, setWarning] = useState({});
   const [isSending, setIsSending] = useState(false);
-  //refs
+  const login = useLogin();
   //refs
   const usernameRef = useRef();
   const passwordRef = useRef();
@@ -31,9 +32,14 @@ function Login() {
     try {
       const { data } = await axios.post(host + '/accounts/login', account);
       console.log(data);
+      //Nếu bị lỗi (không có username, sai mật khẩu)
       if (!!!data.account) {
         setWarning({ success: false, field: data.errorField, message: data.message });
         refs[data.errorField].current?.focus();
+      }
+      //Nếu thành công
+      else {
+        login(data.account);
       }
     } catch (err) {
       alert(err.message);

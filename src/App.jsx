@@ -1,29 +1,26 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { memo, useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import './App.css';
-import { Footer, Header } from './public';
-import { Provider } from 'react-redux';
-import store from './store/store';
-const queryClient = new QueryClient();
 import Routes from './routes/Routes';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Footer, Header } from './public';
+import './App.css';
+import useLoginWithToken from './hooks/useLoginWithToken';
 function App() {
+  console.log('App rendered');
+  const loginWithToken = useLoginWithToken();
+  useEffect(() => {
+    loginWithToken();
+  }, []);
   return (
-    <Provider store={store}>
+    <Router>
       <div id="dark" className="mode">
-        <QueryClientProvider client={queryClient}>
-          <Router>
-            <Header />
-            <div id="container">
-              <Routes />
-            </div>
-            <Footer />
-          </Router>
-          <ReactQueryDevtools />
-        </QueryClientProvider>
+        <Header />
+        <div id="container">
+          <Routes />
+        </div>
+        <Footer />
       </div>
-    </Provider>
+    </Router>
   );
 }
 
-export default App;
+export default memo(App);

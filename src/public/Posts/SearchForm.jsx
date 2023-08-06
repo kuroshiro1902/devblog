@@ -23,7 +23,7 @@ function SearchForm() {
     <form className={s.search} onSubmit={handleSubmit}>
       <TextFormInput
         placeholder="Seaching by title, content, author, ..."
-        onChange={setSearchValue}
+        onChange={(e) => setSearchValue(e.target.value)}
         value={searchValue}
         required={false}
       ></TextFormInput>
