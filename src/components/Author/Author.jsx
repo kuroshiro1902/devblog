@@ -10,12 +10,12 @@ function Author({ author, time }) {
   };
   return (
     <div className={s.author}>
-      <Link className={s.img}>
+      <Link className={s.img} to={`/author/@${author.handleName}`}>
         <img src={author.avatarUrl} />
       </Link>
       <div className={s.main}>
         <h4>
-          <a>{author.fullname}</a>
+          <Link to={`/author/@${author.handleName}`}>{author.fullname}</Link>
         </h4>
         {time && <div className="subtext">{formatISODateToDate(time)}</div>}
       </div>
