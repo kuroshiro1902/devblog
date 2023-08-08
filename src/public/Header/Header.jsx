@@ -1,14 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+/* eslint-disable react/display-name */
+import { memo, useEffect, useRef, useState } from 'react';
 
 import s from './Header.module.scss';
 import { DarkModeBtn, Logo, MobileNav, NavItem } from '../../components';
 import { FaBars } from 'react-icons/fa';
 
 import { IoClose } from 'react-icons/io5';
-import { Link } from 'react-router-dom';
 import Account from './Account';
 
-export default function Header() {
+const Header = () => {
   const headerRef = useRef(null);
   const [toggle, setToggle] = useState(false);
   const toggleNav = () => {
@@ -149,4 +149,6 @@ export default function Header() {
       </div>
     </div>
   );
-}
+};
+
+export default memo(Header);

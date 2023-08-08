@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import useGetData from '../../hooks/useGetData';
 import host from '../../host.config';
@@ -18,7 +18,9 @@ import { createImageFilesFromSrcs, sendAllFilesToUrl, dataValidation } from './p
 import s from './CreatePost.module.scss';
 let editorDOM;
 function WritePost() {
-  const { data: categories, isFetching: isFetchingCategories } = useGetData(['categories'], `${host}/categories`);
+  const { data: categories, isFetching: isFetchingCategories } = useGetData(['categories'], {
+    url: `${host}/categories`,
+  });
   //form Data
   const [title, setTitle] = useState('');
   const [thumbnailFile, setThumbnailFile] = useState(''); //type: File
