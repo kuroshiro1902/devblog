@@ -2,7 +2,7 @@ import { Routes as ReactRoutes, Route } from 'react-router-dom';
 import { Home, Posts, PostDetail, Login, Signup } from '../public';
 import { Admin, AddCategory } from '../private';
 import { CreatePost } from '../private';
-function Routes() {
+function PublicRoutes() {
   return (
     <ReactRoutes>
       <Route path="/admin/category" element={<AddCategory />} />
@@ -18,4 +18,4 @@ function Routes() {
   );
 }
 
-export default Routes;
+export default PublicRoutes;

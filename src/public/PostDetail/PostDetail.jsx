@@ -2,68 +2,55 @@ import { useParams } from 'react-router-dom';
 import BreadCrumb from '../../components/BreadCrumb/BreadCrumb';
 import s from './PostDetail.module.scss';
 import g from '../../style.module.scss';
-import { Author, BlockItem, RecentBlock, Comment } from '../../components';
 import clsx from 'clsx';
+import useGetData from '../../hooks/useGetData';
+import host from '../../host.config';
 import { useEffect, useRef } from 'react';
-const _content = `<p>
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis ratione nisi vero
-asperiores explicabo voluptatum ea nam animi, as 10 tempora et commodi a magnam cumque modi
-quo amet impedit! Animi, aperiam?
-</p>
-<img src="https://jthemes.net/themes/wp/genz/wp-content/uploads/2023/02/img.jpg" />
-<p>
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis ratione nisi vero
-asperiores explicabo voluptatum ea nam animi, as 10 tempora et commodi a magnam cumque modi
-quo amet impedit! Animi, aperiam.
-</p>
-<p>
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis ratione nisi vero
-asperiores explicabo voluptatum ea nam animi, as 10 tempora et commodi a magnam cumque modi
-quo amet impedit! Animi, aperiam.
-</p>`;
-import { findCommentById } from '../../alternates/comments';
-const commentIds = ['1', '4'];
-function PostDetail({ content = _content }) {
+import { Heading, RelatedPosts, Comments } from './Sections';
+import formatISODateToDate from '../../utils/formatISODateToDate';
+function PostDetail() {
   const contentRef = useRef();
-  const { slug } = useParams();
+  const paths = [
+    { name: 'Home', slug: '/' },
+    { name: 'Posts', slug: '/posts' },
+  ];
+  const { slug: _id } = useParams();
+  const {
+    data: post,
+    isLoading,
+    isError,
+  } = useGetData([`post ${_id}`], { url: `${host}/posts/${_id}` }, { staleTime: 1 * 60 * 1000, retry: 2 });
   useEffect(() => {
-    contentRef.current.innerHTML = content;
-  }, []);
+    if (contentRef.current) contentRef.current.innerHTML = post?.content;
+  }, [post]);
+  if (isError)
+    return (
+      <div className={s.postDetail}>
+        <div className={s.breadCrumb}>
+          <BreadCrumb path={paths} target={post?.title} />
+        </div>
+        <h1 style={{ paddingTop: '2.5rem' }}>Cannot get the post now :(</h1>
+      </div>
+    );
   return (
     <div className={s.postDetail}>
       <div className={s.breadCrumb}>
-        <BreadCrumb />
+        <BreadCrumb path={paths} target={post?.title} />
       </div>
-      <div className={s.heading}>
-        <div className={s.leftHeading}>
-          <h1 className={s.title}>Five places must visit in turkey to relax in the winter season</h1>
-          <Author />
-        </div>
-        <div className={s.rightHeading}>Share to fb</div>
-      </div>
-      <main className={clsx(s.main, g.flex)}>
-        <div>
-          <div className={clsx(g.content, s.content, 'ql-editor')} ref={contentRef}></div>
-          <div>
-            <h1 style={{ marginTop: '1rem' }}>Comments</h1>
-            <small>Login to comment.</small>
-            <section className={s.comments}>
-              {commentIds.map((commentId) => (
-                <Comment key={commentId} data={findCommentById(commentId)} />
-              ))}
-            </section>
-          </div>
-        </div>
-        <div className={s.relatedPosts}>
-          <RecentBlock title="Related posts">
-            <BlockItem />
-            <BlockItem />
-            <BlockItem />
-            <BlockItem />
-            <BlockItem />
-          </RecentBlock>
-        </div>
-      </main>
+      {isLoading ? (
+        <h1 style={{ paddingTop: '2.5rem' }}>Loading...</h1>
+      ) : (
+        <>
+          <Heading title={post?.title} author={post?.author} createdAt={formatISODateToDate(post?.createdAt)} />
+          <main className={clsx(s.main, g.flex)}>
+            <div>
+              <div className={clsx(s.content, 'ql-editor')} ref={contentRef}></div>
+              <Comments />
+            </div>
+            <RelatedPosts />
+          </main>
+        </>
+      )}
     </div>
   );
 }

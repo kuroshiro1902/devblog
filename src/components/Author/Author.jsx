@@ -1,16 +1,23 @@
 import s from './Author.module.scss';
-import getTime from '../../utils/getTime';
-function Author({ author = { id: 1, name: 'Author' }, time = new Date() }) {
+import formatISODateToDate from '../../utils/formatISODateToDate';
+import { Link } from 'react-router-dom';
+function Author({ author, time }) {
+  author = author ?? {
+    _id: 1,
+    fullname: 'Author',
+    handleName: 'author00',
+    avatarUrl: 'https://jthemes.net/themes/wp/genz/wp-content/uploads/2023/04/banner-150x150.png',
+  };
   return (
     <div className={s.author}>
-      <a className={s.img}>
-        <img src="https://jthemes.net/themes/wp/genz/wp-content/uploads/2023/02/news2.jpg" />
-      </a>
-      <div>
+      <Link className={s.img} to={`/author/@${author.handleName}`}>
+        <img src={author.avatarUrl} />
+      </Link>
+      <div className={s.main}>
         <h4>
-          <a>{author.name}</a>
+          <Link to={`/author/@${author.handleName}`}>{author.fullname}</Link>
         </h4>
-        <div className="subtext">{getTime(time)}</div>
+        {time && <div className="subtext">{formatISODateToDate(time)}</div>}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Overlay, TextFormInput, PrimaryButton } from '../../components';
 import s from './Category.module.scss';
@@ -81,6 +81,26 @@ export default function AddCategory() {
         </tbody>
       </table>
       <br />
+      <PrimaryButton onClick={() => handleCreateClick()}>Thêm Categogy mới</PrimaryButton>
+      <div className={s.create} ref={formRef}>
+        {/* <div className={s.overlay} onClick={closeCreate}></div> */}
+        <Overlay handleClose={closeCreate}>
+          <div className={s.form} onClick={(e) => e.stopPropagation()}>
+            <div className={s.header}>
+              <h3>{edit ? 'Sửa danh mục' : 'Thêm danh mục'}</h3>
+              <div className={s.close} onClick={closeCreate}>
+                X
+              </div>
+            </div>
+            <form onSubmit={handleFormSubmit}>
+              <TextFormInput placeholder="Nhập tên" value={name} onChange={setName} />
+              <TextFormInput placeholder="Nhập slug" value={slug} onChange={setSlug} />
+              <br />
+              <PrimaryButton>{edit ? 'edit' : 'create'}</PrimaryButton>
+            </form>
+          </div>
+        </Overlay>
+      </div>
       <PrimaryButton children="Thêm Categogy mới" onClick={handleCreateClick} />
       {isShowForm && <AddForm closeCreate={closeCreate} data={editData} />}
     </div>

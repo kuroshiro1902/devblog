@@ -19,7 +19,9 @@ import s from './CreatePost.module.scss';
 let editorDOM;
 const virtualEditor = document.createElement('div');
 function WritePost() {
-  const { data: categories, isFetching: isFetchingCategories } = useGetData(['categories'], `${host}/categories`);
+  const { data: categories, isFetching: isFetchingCategories } = useGetData(['categories'], {
+    url: `${host}/categories`,
+  });
   //form Data
   const [title, setTitle] = useState('');
   const [thumbnailFile, setThumbnailFile] = useState(''); //type: File

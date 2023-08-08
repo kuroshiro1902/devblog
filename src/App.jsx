@@ -1,25 +1,23 @@
-import { memo, useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Routes from './routes/Routes';
+import { memo, useEffect } from 'react';
 import { Footer, Header } from './public';
-import './App.css';
-import useLoginWithToken from './hooks/useLoginWithToken';
+import PublicRoutes from './routes/PublicRoutes';
 function App() {
   console.log('App rendered');
-  const loginWithToken = useLoginWithToken();
-  useEffect(() => {
-    loginWithToken();
-  }, []);
+  // const loginWithToken = useLoginWithToken();
+  // useEffect(() => {
+  //   loginWithToken();
+  // }, []);
   return (
-    <Router>
-      <div id="dark" className="mode">
+    <div id="dark" className="mode">
+      <Router>
         <Header />
         <div id="container">
-          <Routes />
+          <PublicRoutes />
         </div>
         <Footer />
-      </div>
-    </Router>
+      </Router>
+    </div>
   );
 }
 

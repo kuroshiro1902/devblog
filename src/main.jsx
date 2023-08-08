@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import GlobalProviders from './GlobalProviders.jsx';
+import ContextProviders from './ContextProviders.jsx';
 import App from './App.jsx';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <GlobalProviders>
+  <ContextProviders>
     <App />
-  </GlobalProviders>,
+  </ContextProviders>,
 );

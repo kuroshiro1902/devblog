@@ -1,16 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-const useGetData = (queryKey = ['data'], url = '', options = {}) => {
+const useGetData = (queryKey = ['data'], { url = '', body = {}, config = {} }, options = {}) => {
   return useQuery(
     [...queryKey],
     async () => {
-      try {
-        const response = await axios.get(url);
-        return response.data;
-      } catch (error) {
-        throw new Error(error.message);
-      }
+      const response = await axios.get(url, body, config);
+      return response.data;
     },
     { refetchOnMount: false, refetchOnWindowFocus: false, ...options },
   );
