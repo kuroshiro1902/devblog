@@ -9,7 +9,6 @@ function EditorChoicePostsSection() {
     { staleTime: 2 * 60 * 1000, cacheTime: 10 * 60 * 1000 },
   );
   const data = queryResult.data ?? [null, null, null, null, null];
-  console.log(data);
   return (
     <div>
       <Heading title={`Editors' Choice`} description="Featured and highly rated articles" />

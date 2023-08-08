@@ -13,7 +13,7 @@ function Author({ author, time }) {
       <Link className={s.img}>
         <img src={author.avatarUrl} />
       </Link>
-      <div>
+      <div className={s.main}>
         <h4>
           <a>{author.fullname}</a>
         </h4>

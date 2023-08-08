@@ -5,21 +5,21 @@ import s from './PostCard.module.scss';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 function PostCard({ post }) {
   const readtime = 2;
-  if (!post)
-    post = {
-      _id: null,
-      title: 'Loading...',
-      thumbnailUrl: 'https://jthemes.net/themes/wp/genz/wp-content/uploads/2023/02/news2.jpg',
-      categories: [{ name: 'loading' }],
-      description: 'Explore the world through interesting articles on technology, lifestyle, healthy and more.',
-      author: {
-        _id: 'Loading...',
-        fullname: 'Loading...',
-        handleName: 'Loading...',
-        avatarUrl: 'https://jthemes.net/themes/wp/genz/wp-content/uploads/2023/04/banner-150x150.png',
-      },
-      createdAt: '2023-06-01T15:30:00.000Z',
-    };
+  const initData = {
+    _id: null,
+    title: 'Loading...',
+    thumbnailUrl: 'https://jthemes.net/themes/wp/genz/wp-content/uploads/2023/02/news2.jpg',
+    categories: [{ name: 'loading' }],
+    description: 'Explore the world through interesting articles on technology, lifestyle, healthy and more.',
+    author: {
+      _id: 'Loading...',
+      fullname: 'Loading...',
+      handleName: 'Loading...',
+      avatarUrl: 'https://jthemes.net/themes/wp/genz/wp-content/uploads/2023/04/banner-150x150.png',
+    },
+    createdAt: '2023-06-01T15:30:00.000Z',
+  };
+  if (!post) post = initData;
   return (
     <div className={s.postCard}>
       <div className={s.imgCtn}>
