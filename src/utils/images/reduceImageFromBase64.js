@@ -4,9 +4,9 @@
  * @param {string} filename
  * @returns {{File, string}} {file after reduced, url of file}
  */
-const img = document.createElement('img');
 import base64ToFile from './base64ToFile';
 export default function reduceImageFromBase64(base64 = '', filename = 'image') {
+  const img = document.createElement('img');
   img.setAttribute('src', base64);
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');

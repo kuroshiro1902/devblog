@@ -3,10 +3,9 @@
 
 .banner {
   width: 100%;
-  // padding: 0 4rem;
+  padding: 0 4rem;
   //   background: url(https://fullstack.edu.vn/static/media/cover-profile.3fb9fed576da4b28386a.png);
   position: relative;
-  margin-bottom: 5rem;
 }
 
 .banner .image {
@@ -17,7 +16,7 @@
 }
 
 .avatar {
-  top: calc(100%);
+  bottom: -30%;
   left: 6rem;
   width: 10rem;
   height: 10rem;
@@ -25,7 +24,6 @@
   background-color: var(--bg);
   position: absolute;
   border-radius: 50%;
-  transform: translateY(-60%);
 }
 
 .avatar img {
@@ -34,28 +32,15 @@
   border-radius: 50%;
 }
 
-.nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 1rem 0;
-}
-
-.navLeft {
-  display: flex;
-  gap: 2rem;
-}
-
-.navItem {
-  cursor: pointer;
-}
-
 .content {
   width: 100%;
+  display: flex;
 }
 
-.ceratePost {
-  padding: 0.4rem 0.8rem;
-  border: 1px solid #ccc;
-  border-radius: 1rem;
+.contentLeft {
+  width: 40%;
+}
+
+.contentRight {
+  width: 60%;
 }

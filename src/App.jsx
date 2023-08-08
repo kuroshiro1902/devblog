@@ -1,19 +1,14 @@
 import { BrowserRouter as Router } from 'react-router-dom';
-import { memo, useEffect } from 'react';
+import './App.css';
 import { Footer, Header } from './public';
-import PublicRoutes from './routes/PublicRoutes';
+import Routes from './routes/Routes';
 function App() {
-  console.log('App rendered');
-  // const loginWithToken = useLoginWithToken();
-  // useEffect(() => {
-  //   loginWithToken();
-  // }, []);
   return (
     <div id="dark" className="mode">
       <Router>
         <Header />
         <div id="container">
-          <PublicRoutes />
+          <Routes />
         </div>
         <Footer />
       </Router>
@@ -21,4 +16,4 @@ function App() {
   );
 }
 
-export default memo(App);
+export default App;

@@ -82,9 +82,3 @@ a:hover {
 .move-up:hover {
   transform: translateY(-4px);
 }
-
-.active {
-  color: var(--skyblue);
-
-  border-bottom: 1px solid var(--skyblue);
-}

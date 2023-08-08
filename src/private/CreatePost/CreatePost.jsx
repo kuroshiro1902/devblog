@@ -17,7 +17,6 @@ import Preview from './Preview';
 import { createImageFilesFromSrcs, sendAllFilesToUrl, dataValidation } from './prepocessors';
 import s from './CreatePost.module.scss';
 let editorDOM;
-const virtualEditor = document.createElement('div');
 function WritePost() {
   const { data: categories, isFetching: isFetchingCategories } = useGetData(['categories'], {
     url: `${host}/categories`,
@@ -47,9 +46,7 @@ function WritePost() {
     }
   }, []);
   const handleSend = useCallback((data) => {
-    //validation data
-    const validationData = { content: data.content, title: data.title };
-    const { valid, message } = dataValidation(validationData);
+    const { valid, message } = dataValidation(data);
     if (!valid) {
       alert(message);
       return;
@@ -57,66 +54,55 @@ function WritePost() {
     //
     setIsUploadingImageFile(true);
     //tạo editor ảo
-    virtualEditor.innerHTML = data.content;
+    const editor = document.createElement('div');
+    editor.innerHTML = data.content;
     //lấy ra các thẻ img trong editor ảo
-    const imgTags = virtualEditor.getElementsByTagName('img');
+    const imgTags = editor.getElementsByTagName('img');
     //lấy ra các src và đổi src của img
     const imgSrcs = Array.from(imgTags).map((image, index) => {
       const src = image.src;
       image.setAttribute('src', `image${index}`);
       return src;
     });
-    async function uploadData() {
-      try {
-        //tạo các ảnh từ các src trong content
-        const files = await createImageFilesFromSrcs(imgSrcs);
-
-        // Thêm file thumbnail vào CUỐI
-        if (data.thumbnailFile) files.push(data.thumbnailFile);
-
-        // Gửi files
-        const responses = await sendAllFilesToUrl(files, host + '/uploadtocloud');
-
-        // Lấy ra response cuối cùng (là res của thumbnail)
-        if (data.thumbnailFile) {
-          const { imageUrl: thumbnailUrl } = responses.pop();
-          // Xét lại thumbnail của data
-          data.thumbnailUrl = thumbnailUrl;
-        }
-
-        // Xét lại url của các thẻ img
+    //tạo các ảnh từ các src trong content
+    createImageFilesFromSrcs(imgSrcs)
+      .then((files) => {
+        //Thêm file thumbnail vào CUỐI
+        files.push(data.thumbnailFile);
+        //gửi files
+        return sendAllFilesToUrl(files, host + '/uploadtocloud');
+      })
+      .then(async (responses) => {
+        //Lấy ra response cuối cùng (là res của thumbnail)
+        const { imageUrl: thumbnailUrl } = responses.pop();
+        //Xét lại url của các thẻ img
         responses.forEach(({ index, imageUrl }) => {
           imgTags[index].setAttribute('src', imageUrl);
         });
-
-        // Xét lại content của data
-        data.content = virtualEditor.innerHTML;
+        //Xét lại thumbnail của data
+        data.thumbnailUrl = thumbnailUrl;
+        //Xét lại content của data
+        data.content = editor.innerHTML;
 
         console.log('send: ', data);
-        const response = await axios.post(host + '/posts/create', data);
+        return axios.post(host + '/posts/create', data);
+      })
+      .then(async (response) => {
         console.log('res: ', response.data);
         setIsUploadingImageFile(false);
-      } catch (error) {
+      })
+      .catch((error) => {
         alert('Server không phản hồi. Vui lòng thử lại sau');
         console.error(error);
         setIsUploadingImageFile(false);
-      }
-    }
-
-    uploadData();
+      });
   }, []);
   return (
     <>
       <form className={s.createPost}>
         <section className={s.title}>
           <h3>TITLE</h3>
-          <TextFormInput
-            placeholder="Title"
-            name={'title'}
-            required
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
+          <TextFormInput placeholder="Title" name={'title'} required value={title} onChange={setTitle} />
         </section>
         <section className={s.thumbnail}>
           <h3>THUMBNAIL</h3>
@@ -150,43 +136,33 @@ function WritePost() {
           <h3>Categories</h3>
           <div style={{ maxWidth: 600 }}>
             <CheckboxSelect
-              optionDatas={!isFetchingCategories && !!categories ? categories : []}
+              optionDatas={isFetchingCategories ? [] : categories}
               handleSelectedOptions={setSelectedCategories}
               name={'categories'}
             />
           </div>
         </section>
-        {/* <section className={s.hashtag}>
+        <section className={s.hashtag}>
           <h3>hashtags</h3>
-          <HashtagSelect handleSelectedOptions={setSelectedHashtags} name={'hashtags'} />
-        </section> */}
+          <HashtagSelect handleSelectedOptions={() => {}} name={'hashtags'} />
+        </section>
         <Editor />
-        <small style={{ color: 'crimson' }}>
-          *This is just a beta version, some editor features may not work properly (e.g. copying and pasting images), we
-          recommend you to upload images instead of pasting images into the editor.
-        </small>
         <div className={s.buttons}>
           <SecondaryButton
             onClick={() => {
               setIsPreviewing(true);
             }}
-            type="button"
           >
             Preview
           </SecondaryButton>
           <PrimaryButton
-            type="submit"
             onClick={(e) => {
               e.preventDefault();
-              // tạo data gửi đi
-              const data = {
+              //tạo data gửi đi
+              let data = {
                 title: title.trim(),
                 thumbnailFile,
-                categories: selectedCategories.map((category) => {
-                  delete category.selected;
-                  return category;
-                }),
-                hashtags: selectedHashtags,
+                selectedCategories,
                 content: editorDOM.innerHTML,
               };
               handleSend(data);
@@ -202,13 +178,7 @@ function WritePost() {
         )}
         {isPreviewing && (
           <Preview
-            data={{
-              title: title.trim(),
-              thumbnailFile,
-              categories: selectedCategories,
-              hashtags: selectedHashtags,
-              content: editorDOM.innerHTML,
-            }}
+            content={editorDOM.innerHTML}
             handleClose={() => {
               setIsPreviewing(false);
             }}
