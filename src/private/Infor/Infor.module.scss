@@ -1,0 +1,23 @@
+.content {
+  width: 100%;
+  display: flex;
+}
+
+.contentLeft {
+  width: 40%;
+  margin-right: 0.8rem;
+}
+
+.contentRight {
+  width: 60%;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+}
